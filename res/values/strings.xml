@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">glii</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    
+    <!-- LoginActivity -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_register">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="menu_forgot_password">Recover lost password</string>
+    <string name="login_progress_signing_in">Signing in&#8230;</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    
+    <!-- MainActivity -->
+    <string name="title_activity_main">glii</string>
+    <string name="tab_news_title">News</string>
+    <string name="tab_group_title">Group</string>
+    <string name="tab_gallery_title">Gallery</string>
+    <string name="tab_agenda_title">Agenda</string>
+    <string name="tab_menu_title">Menu</string>
+    
+    <!-- NewsFragment -->
+    <string name="news_empty_message">No results</string>
+
+</resources>

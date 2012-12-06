@@ -1,0 +1,137 @@
+package me.ramuta.daycare.service;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import me.ramuta.daycare.data.UrlHelper;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+
+import android.app.IntentService;
+import android.content.Intent;
+import android.util.Log;
+
+public class MainService extends IntentService {
+	private static final String TAG = "MainService";
+	
+	// connection variables
+	private InputStream is = null;
+	private StringBuilder sb = null;
+	
+	// data variables
+	private String streamResponse;
+	
+	public MainService() {
+		super("MainService");
+	}
+
+	@Override
+	protected void onHandleIntent(Intent arg0) {
+		// TODO Auto-generated method stub
+		Log.i(TAG, "zaèetek servicea");
+		
+		getStream4();
+		
+	}
+
+	// get home stream
+	public void getStream() {
+		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		//nameValuePairs.add(new BasicNameValuePair("fb_user_id", user.getFB_ID())); // post values
+	   	
+    	// http post 
+    	try {
+    	     HttpClient httpclient = new DefaultHttpClient();
+    	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post");
+    	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    	     httppost.setHeader("Accept","application/json");
+    	     httppost.setHeader("Content-type","application/json");
+    	     HttpResponse response = httpclient.execute(httppost);
+    	     HttpEntity entity = response.getEntity();
+    	     is = entity.getContent();
+    	} catch(Exception e){
+    	     Log.e(TAG, "Error in http connection"+e.toString());
+    	}
+    	
+    	//convert response to string
+    	try {
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+    		sb = new StringBuilder();
+    	    sb.append(reader.readLine() + "\n");
+	        String line="0";	        
+	        while ((line = reader.readLine()) != null) {
+	        	sb.append(line + "\n");
+	        }        
+	        is.close();
+	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+	        Log.i(TAG, "PHOTOS: " + sb.toString());
+    	} catch(Exception e){
+    		Log.e(TAG, "Error converting result "+e.toString());
+    	}
+	}
+		
+		public void getStream4() {
+			URL url = null;
+			try {
+				url = new URL("http://api.glii.me/api/Post");
+			} catch (MalformedURLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			   HttpURLConnection urlConnection = null;
+			try {
+				urlConnection = (HttpURLConnection) url.openConnection();
+				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"),8);
+	    		sb = new StringBuilder();
+	    	    sb.append(reader.readLine() + "\n");
+		        String line="0";	        
+		        while ((line = reader.readLine()) != null) {
+		        	sb.append(line + "\n");
+		        }        
+		        in.close();
+		        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+		        Log.i(TAG, "PHOTOS4: " + sb.toString());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} finally {
+			     urlConnection.disconnect();
+			   }
+			   
+
+			   
+			   /*
+			   HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			   try {
+			     urlConnection.setDoOutput(true);
+			     urlConnection.setChunkedStreamingMode(0);
+
+			     OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+			     writeStream(out);
+
+			     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+			     readStream(in);
+			   } finally {
+			     urlConnection.disconnect();
+			   }
+			   */
+		}
+}
