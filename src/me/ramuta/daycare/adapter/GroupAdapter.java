@@ -1,7 +1,6 @@
 package me.ramuta.daycare.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -9,56 +8,72 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import me.ramuta.daycare.R;
+import me.ramuta.daycare.object.Child;
 import me.ramuta.daycare.object.Post;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NewsAdapter extends ArrayAdapter<Post> {
-	private static final String TAG = "ItemsAdapter";
-	private LayoutInflater inflater;
-	private ArrayList<Post> posts = new ArrayList<Post>();
+public class GroupAdapter extends BaseAdapter {
+	private static final String TAG = "GroupAdapter";
+	
+	private Context mContext;
+	
+	private ArrayList<Child> children;
+	private LayoutInflater li;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
-	private int textViewResourceId;
-
-	public NewsAdapter(Context context, int textViewResourceId, ArrayList<Post> posts) {
-		super(context, textViewResourceId, posts);
-
-		inflater = LayoutInflater.from(context);
-		this.posts = posts;
-		this.textViewResourceId = textViewResourceId;
+	
+	public GroupAdapter(Context c, ArrayList<Child> children) {
+		mContext = c;
+		li = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.children = children;
 		
 		imageLoader = ImageLoader.getInstance();
+		
  		options = new DisplayImageOptions.Builder()
 		.showStubImage(R.drawable.ic_launcher)
 		.cacheInMemory()
 		.cacheOnDisc()
 		.build();
  		
- 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+ 		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(c)
         .defaultDisplayImageOptions(options)
-        .memoryCache(new WeakMemoryCache())
+        //.memoryCache(new WeakMemoryCache())
         .build();
  		imageLoader.init(config);
 	}
+	
+	public int getCount() {
+        return children.size();
+    }
 
+    public Object getItem(int position) {
+        return null;
+    }
+
+    public long getItemId(int position) {
+        return 0;
+    }
+	
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
-		if (view == null) {
-			view = inflater.inflate(textViewResourceId, null);
+		
+		if (view==null) {
+			view = li.inflate(R.layout.fragment_group_item, null);
 		}
 		
-		Post post = posts.get(position);
+		Child child = children.get(position);
 		
-		TextView author = (TextView)view.findViewById(R.id.news_author);
-		TextView text = (TextView)view.findViewById(R.id.news_text);
+		ImageView image = (ImageView)view.findViewById(R.id.group_image);
 		
-		author.setText(post.getAuthorFirstName()+" "+post.getAuthorLastName());
-		text.setText(post.getText());
+		imageLoader.displayImage(child.getImageUrl(), image, options);
 		
 		return view;
 	}
