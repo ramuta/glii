@@ -3,7 +3,12 @@
 
     <string name="app_name">glii</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- Menu -->
     <string name="menu_settings">Settings</string>
+    <string name="menu_add_news">Add news</string>
+    <string name="menu_add_photo">Add photo</string>
+    <string name="menu_send_news">Send</string>
     
     <!-- LoginActivity -->
     <string name="prompt_email">Email</string>
@@ -27,5 +32,14 @@
     
     <!-- NewsFragment -->
     <string name="news_empty_message">No results</string>
+    
+    <!-- AddNewsActivity -->
+    <string name="title_activity_add_news">Add news</string>
+    <string name="add_news_text">What is happening? :)</string>
+    <string name="add_news_select_group">Select group</string>
+    <string name="add_news_send">Send</string>
+    
+    <!-- SelectGroupDialogFragment -->
+    <string name="select_group_title">Select group</string>
 
 </resources>

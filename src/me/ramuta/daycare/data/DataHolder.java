@@ -13,6 +13,7 @@ public class DataHolder {
 	
 	private static ArrayList<Post> posts = new ArrayList<Post>();
 	private static ArrayList<Child> children = new ArrayList<Child>();
+	private static ArrayList<String> groups = new ArrayList<String>();
 	
 	public DataHolder() {
 		super();
@@ -99,5 +100,19 @@ public class DataHolder {
 	 */
 	public static void setChildren(ArrayList<Child> children) {
 		DataHolder.children = children;
+	}
+
+	/**
+	 * @return the groups
+	 */
+	public static ArrayList<String> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @param groups the groups to set
+	 */
+	public static void setGroups(ArrayList<String> groups) {
+		DataHolder.groups = groups;
 	}
 }

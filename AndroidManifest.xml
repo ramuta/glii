@@ -28,6 +28,10 @@
         </activity>
         
         <activity
+            android:name="me.ramuta.daycare.activity.AddNewsActivity"
+            android:label="@string/title_activity_add_news" />
+        
+        <activity
             android:name="me.ramuta.daycare.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"

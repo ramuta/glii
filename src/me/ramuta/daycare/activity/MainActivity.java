@@ -10,7 +10,6 @@ import me.ramuta.daycare.R;
 import me.ramuta.daycare.adapter.TabsAdapter;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.fragment.AppleFragment;
-import me.ramuta.daycare.fragment.DummyFragment;
 import me.ramuta.daycare.fragment.GroupFragment;
 import me.ramuta.daycare.fragment.NewsFragment;
 import me.ramuta.daycare.service.MainService;
@@ -25,12 +24,11 @@ import android.widget.TabHost;
 public class MainActivity extends SherlockFragmentActivity {
 	private static final String TAG = "MainActivity";
 	
-	// actionbar
+	// actionbar in tabi
 	private ActionBar actionBar;
 	private TabHost mTabHost;
     private ViewPager  mViewPager;
     private TabsAdapter mTabsAdapter;
-    private FragmentManager fragmentManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,54 +52,9 @@ public class MainActivity extends SherlockFragmentActivity {
         // viewpager
         mViewPager = (ViewPager)findViewById(R.id.pager);
 
-        /*
-        ViewPager.SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener(){
-        	@Override
-        	public void onPageSelected(int position) {        		
-        		super.onPageSelected(position);
-        		actionBar.setSelectedNavigationItem(position);        		
-        	}        	
-        };
-        
-        mViewPager.setOnPageChangeListener(pageChangeListener);
-        
-        // Fragment manager
-        fragmentManager = getSupportFragmentManager();
-        
-        MyFragmentPagerAdapter myPagerAdapter = new MyFragmentPagerAdapter(fragmentManager);
-        
-        mViewPager.setAdapter(myPagerAdapter);
-        
         // tabs
-        ActionBar.Tab newsTab = getSupportActionBar().newTab();
-        ActionBar.Tab groupTab = getSupportActionBar().newTab();
-        ActionBar.Tab galleryTab = getSupportActionBar().newTab();
-        ActionBar.Tab agendaTab = getSupportActionBar().newTab();
-        ActionBar.Tab menuTab = getSupportActionBar().newTab();
-        
-        newsTab.setText(this.getString(R.string.tab_news_title));
-        groupTab.setText(this.getString(R.string.tab_group_title));
-        galleryTab.setText(this.getString(R.string.tab_gallery_title));
-        agendaTab.setText(this.getString(R.string.tab_agenda_title));
-        menuTab.setText(this.getString(R.string.tab_menu_title));
-        
-        newsTab.setTabListener(tabListener);
-        groupTab.setTabListener(tabListener);
-        galleryTab.setTabListener(tabListener);
-        agendaTab.setTabListener(tabListener);
-        menuTab.setTabListener(tabListener);
-        
-        getSupportActionBar().addTab(newsTab);
-        getSupportActionBar().addTab(groupTab);
-        getSupportActionBar().addTab(galleryTab);
-        getSupportActionBar().addTab(agendaTab);
-        getSupportActionBar().addTab(menuTab);
-        */
-        
 		mTabHost = (TabHost)findViewById(android.R.id.tabhost);
         mTabHost.setup();
-
-        
 
         mTabsAdapter = new TabsAdapter(this, mViewPager);
 
@@ -127,43 +80,6 @@ public class MainActivity extends SherlockFragmentActivity {
         super.onSaveInstanceState(outState);
         outState.putString("tab", mTabHost.getCurrentTabTag());
     }
-	
-
-	private ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-
-		@Override
-		public void onTabSelected(Tab tab, FragmentTransaction ft) {			
-			int tabPosition = tab.getPosition();
-			//mViewPager.setCurrentItem(tabPosition);
-			
-			switch (tabPosition) {
-			case 0:
-				Log.i(TAG, "Tab1: "+tab.getText());
-				break;
-			case 1:
-				Log.i(TAG, "Tab2: "+tab.getText());
-				break;
-			case 2:
-				Log.i(TAG, "Tab3: "+tab.getText());
-				break;
-			case 3:
-				Log.i(TAG, "Tab4: "+tab.getText());
-				break;
-			case 4:
-				Log.i(TAG, "Tab5: "+tab.getText());
-				break;
-			default:
-				break;
-			}
-		}
-		
-		@Override
-		public void onTabUnselected(Tab tab, FragmentTransaction ft) {}
-		
-		@Override
-		public void onTabReselected(Tab tab, FragmentTransaction ft) {}
-	};
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,6 +93,13 @@ public class MainActivity extends SherlockFragmentActivity {
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
 			Log.i(TAG, "Settings");
+			return true;
+		case R.id.menu_add_news:
+			Intent addNewsIntent = new Intent(MainActivity.this, AddNewsActivity.class);
+			startActivity(addNewsIntent); // lahko je tudi Theme Sherlock DIALOG
+			return true;
+		case R.id.menu_add_photo:
+			// TODO: photo intent
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
