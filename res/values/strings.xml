@@ -29,7 +29,12 @@
     <string name="tab_gallery_title">Gallery</string>
     <string name="tab_agenda_title">Agenda</string>
     <string name="tab_menu_title">Menu</string>
-    
+    <string name="result_camera_none">No photo was taken.</string>
+    <string name="image_box_title">Select image</string>
+    <string name="image_box_message">Take a picture with a camera or select it from your gallery.</string>
+    <string name="image_box_gallery">Gallery</string>
+    <string name="image_box_camera">Camera</string>
+        
     <!-- NewsFragment -->
     <string name="news_empty_message">No results</string>
     
@@ -41,5 +46,10 @@
     
     <!-- SelectGroupDialogFragment -->
     <string name="select_group_title">Select group</string>
+    
+    <!-- AddPhotoActivity -->
+    <string name="add_photo_comment">Add comment</string>
+    <string name="add_photo_send">Send</string>
+    <string name="title_activity_add_photo">Send photo</string>
 
 </resources>

@@ -8,18 +8,25 @@ import com.actionbarsherlock.view.MenuItem;
 
 import me.ramuta.daycare.R;
 import me.ramuta.daycare.adapter.TabsAdapter;
+import me.ramuta.daycare.data.CameraHelper;
 import me.ramuta.daycare.data.DataHolder;
+import me.ramuta.daycare.data.GalleryHelper;
 import me.ramuta.daycare.fragment.AppleFragment;
 import me.ramuta.daycare.fragment.GroupFragment;
 import me.ramuta.daycare.fragment.NewsFragment;
 import me.ramuta.daycare.service.MainService;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 public class MainActivity extends SherlockFragmentActivity {
 	private static final String TAG = "MainActivity";
@@ -29,6 +36,13 @@ public class MainActivity extends SherlockFragmentActivity {
 	private TabHost mTabHost;
     private ViewPager  mViewPager;
     private TabsAdapter mTabsAdapter;
+    
+    // galerry/camera
+ 	private static int IMAGE_FLAG; // gallery: 1, camera: 2
+ 	private Uri fileUri;
+ 	private final static int GALLERY_REQUEST_CODE = 111;
+ 	private final static int CAMERA_REQUEST_CODE = 222;
+ 	public static final String PIC_PATH = "getpicpath";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +110,77 @@ public class MainActivity extends SherlockFragmentActivity {
 			return true;
 		case R.id.menu_add_news:
 			Intent addNewsIntent = new Intent(MainActivity.this, AddNewsActivity.class);
-			startActivity(addNewsIntent); // lahko je tudi Theme Sherlock DIALOG
+			startActivity(addNewsIntent);
 			return true;
 		case R.id.menu_add_photo:
-			// TODO: photo intent
+			openGetImageDialogBox(); // open dialog box to choose between camera and gallery
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {   	
+		try {
+			if (reqCode == GALLERY_REQUEST_CODE) {
+				Uri getData = data.getData(); 
+				String picPath = GalleryHelper.getRealPathFromURI(getApplicationContext(), getData);
+				GalleryHelper.setImagePath(picPath);
+				goToAddItemActivity(picPath);				
+			} else if (reqCode == CAMERA_REQUEST_CODE) {
+				String photoPath = CameraHelper.getPhotoPath();
+				if (resultCode != 0) {
+					goToAddItemActivity(photoPath);
+				} else {
+					Toast.makeText(MainActivity.this, R.string.result_camera_none, Toast.LENGTH_SHORT).show();
+				}
+			}
+		} catch (Exception e) {
+			Log.e(TAG, "No item chosen.");
+		}
+	}
+    
+    /** Go to AddPhotoActivity. */
+    private void goToAddItemActivity(String picPath) {
+    	Intent addPhotoIntent = new Intent(this, AddPhotoActivity.class);
+    	addPhotoIntent.putExtra(PIC_PATH, picPath);
+    	startActivity(addPhotoIntent);
+    }
+    
+    /** Opens a dialog box to choose between Camera and Gallery. */
+    private void openGetImageDialogBox() {
+    	AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+		alert.setTitle(R.string.image_box_title);
+		alert.setMessage(R.string.image_box_message);
+		alert.setNegativeButton(R.string.image_box_gallery, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which) {
+				IMAGE_FLAG = 1;
+				Log.i("TAG", "Gremo v gallery");
+				goToGallery();
+			}});
+		alert.setPositiveButton(R.string.image_box_camera, new DialogInterface.OnClickListener() {				
+			public void onClick(DialogInterface dialog, int which) {
+				IMAGE_FLAG = 2;
+				Log.i("TAG", "Odpri fotoaparat");
+				goToIntentCamera();
+			}
+		}).show();
+    }
+    
+    /** Intent to open the gallery. */
+    private void goToGallery() {
+    	Intent intentGallery = new Intent();
+    	intentGallery.setType("image/*");
+    	intentGallery.setAction(Intent.ACTION_GET_CONTENT);
+    	startActivityForResult(Intent.createChooser(intentGallery, "Select image"), GALLERY_REQUEST_CODE);
+    }
+    
+    /** Intent to open original Android Camera app. */
+    private void goToIntentCamera() {
+    	Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    	
+    	fileUri = CameraHelper.getOutputMediaFileUri(CameraHelper.MEDIA_TYPE_IMAGE); // create a file to save the image
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+    	startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    }
 }
