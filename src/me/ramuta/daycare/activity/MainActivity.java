@@ -12,6 +12,7 @@ import me.ramuta.daycare.data.CameraHelper;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.data.GalleryHelper;
 import me.ramuta.daycare.fragment.AppleFragment;
+import me.ramuta.daycare.fragment.GalleryFragment;
 import me.ramuta.daycare.fragment.GroupFragment;
 import me.ramuta.daycare.fragment.NewsFragment;
 import me.ramuta.daycare.service.MainService;
@@ -77,7 +78,7 @@ public class MainActivity extends SherlockFragmentActivity {
         mTabsAdapter.addTab(actionBar.newTab().setText(this.getString(R.string.tab_group_title)),
         		GroupFragment.class, null);
         mTabsAdapter.addTab(actionBar.newTab().setText(this.getString(R.string.tab_gallery_title)),
-        		AppleFragment.class, null);
+        		GalleryFragment.class, null);
         mTabsAdapter.addTab(actionBar.newTab().setText(this.getString(R.string.tab_agenda_title)),
         		AppleFragment.class, null);
         mTabsAdapter.addTab(actionBar.newTab().setText(this.getString(R.string.tab_menu_title)),

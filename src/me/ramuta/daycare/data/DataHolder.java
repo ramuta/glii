@@ -6,6 +6,7 @@ import android.util.Log;
 
 import me.ramuta.daycare.object.Child;
 import me.ramuta.daycare.object.Group;
+import me.ramuta.daycare.object.Photo;
 import me.ramuta.daycare.object.Post;
 
 public class DataHolder {
@@ -14,6 +15,7 @@ public class DataHolder {
 	private static ArrayList<Post> posts = new ArrayList<Post>();
 	private static ArrayList<Child> children = new ArrayList<Child>();
 	private static ArrayList<String> groups = new ArrayList<String>();
+	private static ArrayList<Photo> photos = new ArrayList<Photo>();
 	
 	public DataHolder() {
 		super();
@@ -51,6 +53,18 @@ public class DataHolder {
 		children.add(child4);
 		children.add(child5);
 		//Log.i(TAG, "otrok1: "+children.get(0).getFirstName());
+		
+		// photos
+		Photo photo1 = new Photo("http://www.coastal.ca.gov/publiced/directory/masks.jpg");
+		Photo photo2 = new Photo("http://img.ehowcdn.com/article-new/ehow/images/a07/g2/9l/daysoftheweek-kindergarten-activities-800x800.jpg");
+		Photo photo3 = new Photo("http://www.colourbox.com/preview/1197822-242755-art-and-craft-activity-in-the-kindergarten.jpg");
+		Photo photo4 = new Photo("http://www.timescolonist.com/news/7321573.bin?size=620x400s");
+		Photo photo5 = new Photo("http://www.mnn.com/sites/default/files/main_chanie_kindergarten.jpg");
+		photos.add(photo1);
+		photos.add(photo2);
+		photos.add(photo3);
+		photos.add(photo4);
+		photos.add(photo5);
 	}
 	
 	/**
@@ -114,5 +128,19 @@ public class DataHolder {
 	 */
 	public static void setGroups(ArrayList<String> groups) {
 		DataHolder.groups = groups;
+	}
+
+	/**
+	 * @return the photos
+	 */
+	public static ArrayList<Photo> getPhotos() {
+		return photos;
+	}
+
+	/**
+	 * @param photos the photos to set
+	 */
+	public static void setPhotos(ArrayList<Photo> photos) {
+		DataHolder.photos = photos;
 	}
 }
