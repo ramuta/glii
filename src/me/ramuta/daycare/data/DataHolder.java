@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.util.Log;
 
 import me.ramuta.daycare.object.Child;
+import me.ramuta.daycare.object.Event;
 import me.ramuta.daycare.object.Group;
 import me.ramuta.daycare.object.Photo;
 import me.ramuta.daycare.object.Post;
@@ -16,6 +17,7 @@ public class DataHolder {
 	private static ArrayList<Child> children = new ArrayList<Child>();
 	private static ArrayList<String> groups = new ArrayList<String>();
 	private static ArrayList<Photo> photos = new ArrayList<Photo>();
+	private static ArrayList<Event> events = new ArrayList<Event>();
 	
 	public DataHolder() {
 		super();
@@ -65,6 +67,14 @@ public class DataHolder {
 		photos.add(photo3);
 		photos.add(photo4);
 		photos.add(photo5);
+		
+		// events
+		Event event1 = new Event("Obisk Dedka Mraza.", "15.12.2012");
+		Event event2 = new Event("Likovna delavnica.", "20.12.2012");
+		Event event3 = new Event("Božièni dan.", "25.12.2012");
+		events.add(event1);
+		events.add(event2);
+		events.add(event3);
 	}
 	
 	/**
@@ -142,5 +152,19 @@ public class DataHolder {
 	 */
 	public static void setPhotos(ArrayList<Photo> photos) {
 		DataHolder.photos = photos;
+	}
+
+	/**
+	 * @return the events
+	 */
+	public static ArrayList<Event> getEvents() {
+		return events;
+	}
+
+	/**
+	 * @param events the events to set
+	 */
+	public static void setEvents(ArrayList<Event> events) {
+		DataHolder.events = events;
 	}
 }

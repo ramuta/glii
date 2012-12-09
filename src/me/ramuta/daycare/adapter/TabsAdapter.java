@@ -83,26 +83,6 @@ public class TabsAdapter extends FragmentPagerAdapter implements ActionBar.TabLi
 				mViewPager.setCurrentItem(i);
 			}
 		}
-	
-		switch (tabPosition) {
-		case 0:
-			Log.i(TAG, "Tab1: "+tab.getText());
-			break;
-		case 1:
-			Log.i(TAG, "Tab2: "+tab.getText());
-			break;
-		case 2:
-			Log.i(TAG, "Tab3: "+tab.getText());
-			break;
-		case 3:
-			Log.i(TAG, "Tab4: "+tab.getText());
-			break;
-		case 4:
-			Log.i(TAG, "Tab5: "+tab.getText());
-			break;
-		default:
-			break;
-		}
 	}
 
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {}

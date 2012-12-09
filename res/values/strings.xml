@@ -38,6 +38,9 @@
     <!-- NewsFragment -->
     <string name="news_empty_message">No results</string>
     
+    <!-- AgendaFragment -->
+    <string name="agenda_empty_message">No events</string>
+    
     <!-- AddNewsActivity -->
     <string name="title_activity_add_news">Add news</string>
     <string name="add_news_text">What is happening? :)</string>
