@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -24,6 +25,9 @@ import com.actionbarsherlock.view.MenuItem;
 
 public class AddNewsActivity extends SherlockFragmentActivity {
 	private static final String TAG = "AddNewsActivity";
+	
+	// actionbar
+	private ActionBar actionBar;
 	
 	// UI
 	private EditText commentBox;
@@ -36,6 +40,10 @@ public class AddNewsActivity extends SherlockFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_news);
+        
+        // actionbar
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         
         // initialize UI
         commentBox = (EditText)findViewById(R.id.add_news_comment);
@@ -68,6 +76,9 @@ public class AddNewsActivity extends SherlockFragmentActivity {
 		switch (item.getItemId()) {
 		case R.id.menu_send_news:
 			showSelectGroupDialog();
+			return true;
+		case android.R.id.home:
+			AddNewsActivity.this.finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

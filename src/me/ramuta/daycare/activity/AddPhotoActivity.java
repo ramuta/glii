@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -20,6 +21,9 @@ public class AddPhotoActivity extends SherlockActivity {
 	// ImageLoader
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
+	
+	// actionbar
+	private ActionBar actionBar;
 	
 	// data
 	private String imagePath;
@@ -40,6 +44,10 @@ public class AddPhotoActivity extends SherlockActivity {
  		.cacheOnDisc()
  		.build();
   		imageLoader.init(ImageLoaderConfiguration.createDefault(getApplicationContext()));
+  		
+  		// actionbar
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
   		
   		// UI initialization
   		image = (ImageView)findViewById(R.id.add_photo_image);
@@ -67,6 +75,9 @@ public class AddPhotoActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_send_news:
+			return true;
+		case android.R.id.home:
+			AddPhotoActivity.this.finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
