@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import me.ramuta.daycare.R;
 import me.ramuta.daycare.activity.AddNewsActivity;
 import me.ramuta.daycare.data.DataHolder;
+import me.ramuta.daycare.service.AddNewsService;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.style.BulletSpan;
@@ -57,6 +59,7 @@ public class SelectGroupDialogFragment extends DialogFragment {
 	
 	private void sendPost() {
 		Toast.makeText(getActivity(), "Post sent", Toast.LENGTH_SHORT).show();
+		
 		getActivity().finish();
 	}
 }

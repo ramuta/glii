@@ -3,6 +3,7 @@ package me.ramuta.daycare.activity;
 import me.ramuta.daycare.R;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.fragment.SelectGroupDialogFragment;
+import me.ramuta.daycare.service.AddNewsService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -54,6 +55,9 @@ public class AddNewsActivity extends SherlockFragmentActivity {
         sendButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
+				Log.i(TAG, "Send button");
+				Intent addPostIntent = new Intent(AddNewsActivity.this, AddNewsService.class);
+				startService(addPostIntent);
 				showSelectGroupDialog();
 			}
 		});

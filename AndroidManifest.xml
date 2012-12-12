@@ -19,6 +19,7 @@
         android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         
         <service android:name=".service.MainService"></service>
+        <service android:name=".service.AddNewsService"></service>
         
         <activity
             android:name="me.ramuta.daycare.activity.LoginActivity"
