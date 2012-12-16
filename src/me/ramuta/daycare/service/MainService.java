@@ -22,6 +22,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 
 import android.app.IntentService;
@@ -72,7 +73,7 @@ public class MainService extends IntentService {
     	
     	//convert response to string
     	try {
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(is,HTTP.UTF_8),8);
     		sb = new StringBuilder();
     	    sb.append(reader.readLine() + "\n");
 	        String line="0";	        
@@ -99,7 +100,7 @@ public class MainService extends IntentService {
 			try {
 				urlConnection = (HttpURLConnection) url.openConnection();
 				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in,"iso-8859-1"),8);
+				BufferedReader reader = new BufferedReader(new InputStreamReader(in,HTTP.UTF_8),8);
 	    		sb = new StringBuilder();
 	    	    sb.append(reader.readLine() + "\n");
 		        String line="0";	        

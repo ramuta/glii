@@ -166,7 +166,8 @@ public class MainActivity extends SherlockFragmentActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				IMAGE_FLAG = 2;
 				Log.i("TAG", "Odpri fotoaparat");
-				goToIntentCamera();
+				//goToIntentCamera();
+				goToCameraActivity();
 			}
 		}).show();
     }
@@ -185,5 +186,11 @@ public class MainActivity extends SherlockFragmentActivity {
     	fileUri = CameraHelper.getOutputMediaFileUri(CameraHelper.MEDIA_TYPE_IMAGE); // create a file to save the image
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
     	startActivityForResult(intent, CAMERA_REQUEST_CODE);
+    }
+    
+    /** Intent to open custom made camera. */
+    private void goToCameraActivity() {
+    	Intent cameraIntent = new Intent(this, CameraActivity.class);
+    	startActivity(cameraIntent);
     }
 }

@@ -13,6 +13,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -42,13 +43,13 @@ public class AddNewsService extends IntentService {
 	public void addNews() {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		nameValuePairs.add(new BasicNameValuePair("UserID", "1")); // post values
-		nameValuePairs.add(new BasicNameValuePair("Note", "Kdo je fstrelo božièka? Barabe!")); // post values
+		nameValuePairs.add(new BasicNameValuePair("Note", "èæžšðèžæžð")); // post values
 	   	
     	// http post 
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
     	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post");
-    	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
     	     //httppost.setHeader("Accept","application/json");
     	     //httppost.setHeader("Content-type","application/json");
     	     HttpResponse response = httpclient.execute(httppost);
@@ -60,7 +61,7 @@ public class AddNewsService extends IntentService {
     	
     	//convert response to string
     	try {
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
     		sb = new StringBuilder();
     	    sb.append(reader.readLine() + "\n");
 	        String line="0";	        
