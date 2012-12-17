@@ -1,9 +1,13 @@
 package me.ramuta.daycare.service;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import me.ramuta.daycare.activity.AddNewsActivity;
+import me.ramuta.daycare.activity.AddPhotoActivity;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,6 +21,9 @@ import org.apache.http.protocol.HTTP;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 
 public class AddNewsService extends IntentService {
@@ -36,14 +43,33 @@ public class AddNewsService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Log.i(TAG, "Service started");
-		addNews();
+		
+		boolean withPhoto = intent.getBooleanExtra(AddNewsActivity.WITH_PHOTO, false); // true: with photo, false: without photo
+		String comment = intent.getStringExtra(AddNewsActivity.COMMENT); // comment
+		
+		String photoPath = null;
+		
+		// if there is a photo, get it's encoded string from intent
+		if (withPhoto) {
+			photoPath = intent.getStringExtra(AddPhotoActivity.PHOTO_PATH);
+		}
+		
+		Log.i(TAG, "comment: "+comment+", with photo? "+withPhoto+", photoPath: "+photoPath);
+		
+		addNews(withPhoto, comment, photoPath);
 	}
 
 	// get home stream
-	public void addNews() {
+	private void addNews(boolean withPhoto, String comment, String photoPath) {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		nameValuePairs.add(new BasicNameValuePair("UserID", "1")); // post values
-		nameValuePairs.add(new BasicNameValuePair("Note", "èæžšðèžæžð")); // post values
+		//nameValuePairs.add(new BasicNameValuePair("UserID", "1")); // user id
+		nameValuePairs.add(new BasicNameValuePair("Note", comment)); // comment		
+		
+		if (withPhoto) {
+			Log.i(TAG, "also sending photo");
+			String encodedPhoto = encode64(photoPath);
+			nameValuePairs.add(new BasicNameValuePair("Photo", encodedPhoto)); // photo string
+		}
 	   	
     	// http post 
     	try {
@@ -74,5 +100,15 @@ public class AddNewsService extends IntentService {
     	} catch(Exception e){
     		Log.e(TAG, "Error converting result "+e.toString());
     	}
+	}
+	
+	private String encode64(String photoPath) {
+		Bitmap bitmap = BitmapFactory.decodeFile(photoPath);
+		
+		ByteArrayOutputStream bao = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+		byte[] byteArray = bao.toByteArray();
+		String encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+		return encodedImage;
 	}
 }

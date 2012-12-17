@@ -27,6 +27,9 @@ import com.actionbarsherlock.view.MenuItem;
 public class AddNewsActivity extends SherlockFragmentActivity {
 	private static final String TAG = "AddNewsActivity";
 	
+	public static final String WITH_PHOTO = "withphoto";
+	public static final String COMMENT = "comment";
+	
 	// actionbar
 	private ActionBar actionBar;
 	
@@ -57,6 +60,8 @@ public class AddNewsActivity extends SherlockFragmentActivity {
 			public void onClick(View v) {
 				Log.i(TAG, "Send button");
 				Intent addPostIntent = new Intent(AddNewsActivity.this, AddNewsService.class);
+				addPostIntent.putExtra(WITH_PHOTO, false);
+				addPostIntent.putExtra(COMMENT, commentBox.getText().toString());
 				startService(addPostIntent);
 				showSelectGroupDialog();
 			}
