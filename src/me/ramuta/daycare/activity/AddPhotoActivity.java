@@ -78,11 +78,7 @@ public class AddPhotoActivity extends SherlockActivity {
 		sendPhoto.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent sendServiceIntent = new Intent(AddPhotoActivity.this, AddNewsService.class);
-				sendServiceIntent.putExtra(AddNewsActivity.WITH_PHOTO, true);
-				sendServiceIntent.putExtra(AddNewsActivity.COMMENT, commentBox.getText().toString());
-				sendServiceIntent.putExtra(PHOTO_PATH, imagePath);
-				startService(sendServiceIntent);
+				startingSendService();
 			}
 		});
 	}
@@ -103,6 +99,7 @@ public class AddPhotoActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_send_news:
+			startingSendService();
 			return true;
 		case android.R.id.home:
 			AddPhotoActivity.this.finish();
@@ -110,5 +107,14 @@ public class AddPhotoActivity extends SherlockActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void startingSendService() {
+		Intent sendServiceIntent = new Intent(AddPhotoActivity.this, AddNewsService.class);
+		sendServiceIntent.putExtra(AddNewsActivity.WITH_PHOTO, true);
+		sendServiceIntent.putExtra(AddNewsActivity.COMMENT, commentBox.getText().toString());
+		sendServiceIntent.putExtra(PHOTO_PATH, imagePath);
+		startService(sendServiceIntent);
+		AddPhotoActivity.this.finish();
 	}
 }

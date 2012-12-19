@@ -15,6 +15,9 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -60,29 +63,31 @@ public class AddNewsService extends IntentService {
 	}
 
 	// get home stream
-	private void addNews(boolean withPhoto, String comment, String photoPath) {
-		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-		//nameValuePairs.add(new BasicNameValuePair("UserID", "1")); // user id
-		nameValuePairs.add(new BasicNameValuePair("Note", comment)); // comment		
-		
-		if (withPhoto) {
-			Log.i(TAG, "also sending photo");
-			String encodedPhoto = encode64(photoPath);
-			nameValuePairs.add(new BasicNameValuePair("Photo", encodedPhoto)); // photo string
+	private void addNews(boolean withPhoto, String comment, String photoPath) {		
+		MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+
+		try {
+			reqEntity.addPart("Note", new StringBody(comment));
+			
+			if (withPhoto) {
+				Log.i(TAG, "also sending photo");
+				String encodedPhoto = encode64(photoPath);
+				reqEntity.addPart("Photo", new StringBody(encodedPhoto));
+			}
+		} catch (Exception e1) {
+			Log.e(TAG, "Error in adding parts to MultipartEntity: "+e1.toString());
 		}
 	   	
     	// http post 
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
     	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post");
-    	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
-    	     //httppost.setHeader("Accept","application/json");
-    	     //httppost.setHeader("Content-type","application/json");
+    	     httppost.setEntity(reqEntity);
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();
     	     is = entity.getContent();
     	} catch(Exception e){
-    	     Log.e(TAG, "Error in http connection"+e.toString());
+    	     Log.e(TAG, "Error in http connection: "+e.toString());
     	}
     	
     	//convert response to string
@@ -98,7 +103,7 @@ public class AddNewsService extends IntentService {
 	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
 	        Log.i(TAG, "response: " + sb.toString());
     	} catch(Exception e){
-    		Log.e(TAG, "Error converting result "+e.toString());
+    		Log.e(TAG, "Error converting result: "+e.toString());
     	}
 	}
 	
