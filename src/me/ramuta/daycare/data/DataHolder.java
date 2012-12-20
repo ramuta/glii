@@ -60,7 +60,7 @@ public class DataHolder {
 		Photo photo1 = new Photo("http://www.coastal.ca.gov/publiced/directory/masks.jpg");
 		Photo photo2 = new Photo("http://img.ehowcdn.com/article-new/ehow/images/a07/g2/9l/daysoftheweek-kindergarten-activities-800x800.jpg");
 		Photo photo3 = new Photo("http://www.colourbox.com/preview/1197822-242755-art-and-craft-activity-in-the-kindergarten.jpg");
-		Photo photo4 = new Photo("http://www.timescolonist.com/news/7321573.bin?size=620x400s");
+		Photo photo4 = new Photo("http://images.teamsugar.com/files/upl1/10/109609/18_2008/daycare.jpg");
 		Photo photo5 = new Photo("http://www.mnn.com/sites/default/files/main_chanie_kindergarten.jpg");
 		photos.add(photo1);
 		photos.add(photo2);
