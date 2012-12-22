@@ -49,7 +49,7 @@ public class AuthService extends IntentService {
 			Log.e(TAG, "Problem setting auth cookie.");
 		}
 		
-		if (!UrlHelper.getAuthCookie().equals("napaka")) { // izbriši klicaj èe hoèeš v Main Activity
+		if (UrlHelper.getAuthCookie().equals("napaka")) { // izbriši klicaj èe hoèeš v Main Activity
 			Log.i(TAG, "cookie is not null");
 			success = true;
 			Intent intentMainService = new Intent(AuthService.this, MainService.class);

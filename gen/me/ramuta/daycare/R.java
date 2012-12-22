@@ -844,8 +844,8 @@ containing a value of this type.
         public static final int menu_forgot_password=0x7f040041;
         public static final int menu_send_news=0x7f040040;
         public static final int menu_settings=0x7f040044;
-        public static final int news_author=0x7f04003e;
-        public static final int news_text=0x7f04003f;
+        public static final int news_author=0x7f04003f;
+        public static final int news_text=0x7f04003e;
         public static final int normal=0x7f040001;
         public static final int pager=0x7f040037;
         public static final int password=0x7f040034;
@@ -939,14 +939,17 @@ containing a value of this type.
         public static final int add_news_send=0x7f09002a;
         public static final int add_news_text=0x7f090028;
         /**  AddPhotoActivity 
+ AddPhotoActivity 
          */
         public static final int add_photo_comment=0x7f09002c;
         public static final int add_photo_send=0x7f09002d;
         /**  AgendaFragment 
+ AgendaFragment 
          */
         public static final int agenda_empty_message=0x7f090026;
         public static final int app_name=0x7f09000a;
         /**  CameraActivity 
+ CameraActivity 
          */
         public static final int camera_button_text=0x7f09002f;
         public static final int error_field_required=0x7f090019;
@@ -964,17 +967,21 @@ containing a value of this type.
         public static final int menu_forgot_password=0x7f090014;
         public static final int menu_send_news=0x7f09000f;
         /**  Menu 
+ Menu 
          */
         public static final int menu_settings=0x7f09000c;
         /**  NewsFragment 
+ NewsFragment 
          */
         public static final int news_empty_message=0x7f090025;
         /**  LoginActivity 
+ LoginActivity 
          */
         public static final int prompt_email=0x7f090010;
         public static final int prompt_password=0x7f090011;
         public static final int result_camera_none=0x7f090020;
         /**  SelectGroupDialogFragment 
+ SelectGroupDialogFragment 
          */
         public static final int select_group_title=0x7f09002b;
         public static final int tab_agenda_title=0x7f09001e;
@@ -983,10 +990,12 @@ containing a value of this type.
         public static final int tab_menu_title=0x7f09001f;
         public static final int tab_news_title=0x7f09001b;
         /**  AddNewsActivity 
+ AddNewsActivity 
          */
         public static final int title_activity_add_news=0x7f090027;
         public static final int title_activity_add_photo=0x7f09002e;
         /**  MainActivity 
+ MainActivity 
          */
         public static final int title_activity_main=0x7f09001a;
     }

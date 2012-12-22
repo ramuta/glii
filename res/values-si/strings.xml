@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">glii</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <!-- Menu -->
+    <string name="menu_settings">Nastavitve</string>
+    <string name="menu_add_news">Dodaj novico</string>
+    <string name="menu_add_photo">Dodaj fotko</string>
+    <string name="menu_send_news">Pošlji</string>
+    
+    <!-- LoginActivity -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Geslo</string>
+    <string name="action_sign_in_register">Potrdi</string>
+    <string name="action_sign_in_short">Potrdi</string>
+    <string name="menu_forgot_password">Povrni pozabljeno geslo.</string>
+    <string name="login_progress_signing_in">Nalaganje&#8230;</string>
+    <string name="error_invalid_email">Ta email naslov ni veljaven</string>
+    <string name="error_invalid_password">To geslo je prekratko</string>
+    <string name="error_incorrect_password">To geslo je nepravilno</string>
+    <string name="error_field_required">To polje je obvezno</string>
+    
+    <!-- MainActivity -->
+    <string name="title_activity_main">glii</string>
+    <string name="tab_news_title">Novice</string>
+    <string name="tab_group_title">Skupina</string>
+    <string name="tab_gallery_title">Galerija</string>
+    <string name="tab_agenda_title">Agenda</string>
+    <string name="tab_menu_title">Jedilnik</string>
+    <string name="result_camera_none">Fotka ni bila narejena.</string>
+    <string name="image_box_title">Naredi fotko</string>
+    <string name="image_box_message">Naredi fotko s fotoaparatom ali jo izberi iz galerije na telefonu.</string>
+    <string name="image_box_gallery">Galerija</string>
+    <string name="image_box_camera">Fotoaparat</string>
+        
+    <!-- NewsFragment -->
+    <string name="news_empty_message">Ni novic</string>
+    
+    <!-- AgendaFragment -->
+    <string name="agenda_empty_message">Ni dogodkov</string>
+    
+    <!-- AddNewsActivity -->
+    <string name="title_activity_add_news">Dodaj novico</string>
+    <string name="add_news_text">Kaj dogaja? :)</string>
+    <string name="add_news_select_group">Izberi skupino</string>
+    <string name="add_news_send">Pošlji</string>
+    
+    <!-- SelectGroupDialogFragment -->
+    <string name="select_group_title">Izberi skupino</string>
+    
+    <!-- AddPhotoActivity -->
+    <string name="add_photo_comment">Dodaj komentar</string>
+    <string name="add_photo_send">Pošlji</string>
+    <string name="title_activity_add_photo">Pošlji fotko</string>
+    
+    <!-- CameraActivity -->
+    <string name="camera_button_text">Fotkaj</string>
+
+</resources>
