@@ -53,9 +53,9 @@ public class MainActivity extends SherlockFragmentActivity {
 		Log.i(TAG, "MainActivity started");
 		
 		// TODO: to se bo klicalo po avtentikaciji
-		Intent intent = new Intent(MainActivity.this, MainService.class);
-		startService(intent);
-		Log.i(TAG, "intent for service sent");
+		//Intent intent = new Intent(MainActivity.this, MainService.class);
+		//startService(intent);
+		//Log.i(TAG, "intent for service sent");
 		
 		// data holder z nekaj dummy objekti
 		DataHolder dataHolder = new DataHolder();

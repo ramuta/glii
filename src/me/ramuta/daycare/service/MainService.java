@@ -19,6 +19,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -48,10 +49,44 @@ public class MainService extends IntentService {
 		// TODO Auto-generated method stub
 		Log.i(TAG, "zaèetek servicea");
 		
-		getStream4();
+		getStream5();
 		
 	}
+	
+	public void getStream5() {		
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpGet httpget = new HttpGet(UrlHelper.getStreamUrl());
+			
+			Log.i(TAG, "auth cookie: "+UrlHelper.getAuthCookie());
+			httpget.addHeader("Cookie", UrlHelper.getAuthCookie().toString());
+			HttpResponse response = httpclient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+   	     	is = entity.getContent();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//convert response to string
+    	try {
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(is,HTTP.UTF_8),65728);
+    		sb = new StringBuilder();
+    	    sb.append(reader.readLine() + "\n");
+	        String line="0";	        
+	        while ((line = reader.readLine()) != null) {
+	        	sb.append(line + "\n");
+	        }        
+	        is.close();
+	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+	        Log.i(TAG, "Stream get response: " + sb.toString());
+    	} catch(Exception e){
+    		Log.e(TAG, "Error converting result "+e.toString());
+    	}
+	}
 
+	/*
 	// get home stream
 	public void getStream() {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -60,7 +95,7 @@ public class MainService extends IntentService {
     	// http post 
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
-    	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post");
+    	     HttpPost httppost = new HttpPost(UrlHelper.getStreamUrl());
     	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
     	     httppost.setHeader("Accept","application/json");
     	     httppost.setHeader("Content-type","application/json");
@@ -87,11 +122,12 @@ public class MainService extends IntentService {
     		Log.e(TAG, "Error converting result "+e.toString());
     	}
 	}
+	*/
 		
 		public void getStream4() {
 			URL url = null;
 			try {
-				url = new URL("http://api.glii.me/api/Post");
+				url = new URL(UrlHelper.getStreamUrl());
 			} catch (MalformedURLException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

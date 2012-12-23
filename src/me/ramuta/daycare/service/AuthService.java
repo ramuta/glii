@@ -107,8 +107,11 @@ public class AuthService extends IntentService {
 			if (pos >= 0)
 			{
 				int pos1 = authCookie.indexOf(";", pos);
-				if(pos1 >= pos)
-					authCookie = authCookie.substring(pos, pos1 - pos);
+				if(pos1 >= pos) {
+					Log.i(TAG, "pos1 >= pos");
+					authCookie = authCookie.substring(pos+10, pos1 - pos);
+				}
+					
 			}
 			Log.i(TAG, "auth cookie v responsu: "+authCookie);
 			

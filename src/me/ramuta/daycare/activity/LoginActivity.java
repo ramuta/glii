@@ -14,10 +14,12 @@ import me.ramuta.daycare.service.MainService;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,32 +28,26 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Activity which displays a login screen to the user, offering registration as
- * well.
- */
 public class LoginActivity extends SherlockFragmentActivity {
 	private static final String TAG = "LoginActivity";
+	
+	// shared prefs
+	public static final String EMAIL = "useremail";
+	public static final String PASSWORD = "userpassword";
 
 	// service broadcast receiver
 	public ResponseReceiver receiver;
 
-	/**
-	 * The default email to populate the email field with.
-	 */
+	// The default email to populate the email field with.
 	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
-	/**
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
-	//private UserLoginTask mAuthTask = null;
-
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
-	private String mPassword;
+	private String mEmail = null;
+	private String mPassword = null;
 	Login login;
 
 	// UI references.
@@ -60,6 +56,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	private Button loginButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,35 +71,56 @@ public class LoginActivity extends SherlockFragmentActivity {
   		filter.addCategory(Intent.ACTION_DEFAULT);
   		receiver = new ResponseReceiver();
   		registerReceiver(receiver, filter);
-
-		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-		mEmailView = (EditText) findViewById(R.id.email);
-		mEmailView.setText(mEmail);
-
-		mPasswordView = (EditText) findViewById(R.id.password);
-		mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
-
-		mLoginFormView = findViewById(R.id.login_form);
+  		
+  		mEmailView = (EditText) findViewById(R.id.email);
+  		mPasswordView = (EditText) findViewById(R.id.password);
+  		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+		loginButton = (Button)findViewById(R.id.sign_in_button);
+  		
+  		try {
+			// get shared prefs data if any (email, password)
+			SharedPreferences userData = getSharedPreferences("LoginActivity", Activity.MODE_PRIVATE);
+			mEmail = userData.getString(EMAIL, null);
+			mPassword = userData.getString(PASSWORD, null);
+			login = new Login(mEmail, mPassword); // Save email and password to Login object.
+		} catch (Exception e) {
+			Log.i(TAG, "error shared prefs");
+		}
 
-		findViewById(R.id.sign_in_button).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						attemptLogin();
-					}
-				});
+  		if (!(mEmail == null)) { // if the previous login is saved, start auth service
+  			showProgress(true);
+  			startAuthService();
+  		} else { // otherwise ask for login
+  		
+			// Set up the login form.
+			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+			
+			mEmailView.setText(mEmail);
+	
+			
+			mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+						@Override
+						public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+							if (id == R.id.login || id == EditorInfo.IME_NULL) {
+								attemptLogin();
+								return true;
+							}
+							return false;
+						}
+					});
+	
+			
+	
+			loginButton.setOnClickListener(
+					new View.OnClickListener() {
+						@Override
+						public void onClick(View view) {
+							attemptLogin();
+						}
+					});
+  		}
 	}
 
 	@Override
@@ -154,6 +172,8 @@ public class LoginActivity extends SherlockFragmentActivity {
 		mEmail = mEmailView.getText().toString();		
 		mPassword = mPasswordView.getText().toString();
 		login = new Login(mEmail, mPassword); // Save email and password to Login object.
+		
+		saveToSharedPrefs(mEmail, mPassword);
 
 		boolean cancel = false;
 		View focusView = null;
@@ -190,10 +210,22 @@ public class LoginActivity extends SherlockFragmentActivity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true); 
 			
-			//start AuthService
-			Intent intentAuthService = new Intent(LoginActivity.this, AuthService.class);
-			startService(intentAuthService);
+			startAuthService();
 		}
+	}
+
+	private void startAuthService() {
+		//start AuthService
+		Intent intentAuthService = new Intent(LoginActivity.this, AuthService.class);
+		startService(intentAuthService);
+	}
+	
+	private void saveToSharedPrefs(String email, String password) {
+		SharedPreferences saveMailPass = getSharedPreferences("LoginActivity", 0);
+		SharedPreferences.Editor editor = saveMailPass.edit();
+		editor.putString(EMAIL, email);
+		editor.putString(PASSWORD, password);
+		editor.commit();
 	}
 
 	/**
