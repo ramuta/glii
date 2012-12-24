@@ -6,6 +6,8 @@ public class Post {
 	private String authorFirstName;
 	private String authorLastName;
 	private boolean hasImage;
+	private String photoUrl;
+	private String thumbUrl;
 
 	// konstruktor 1
 	public Post() {
@@ -13,12 +15,14 @@ public class Post {
 	}
 	
 	// konstruktor 2
-	public Post(String ID, String text, String authorFirstName, String authorLastName, boolean hasImage) {
+	public Post(String ID, String text, String authorFirstName, String authorLastName, boolean hasImage, String photoUrl, String thumbUrl) {
 		setID(ID);
 		setText(text);
 		setAuthorFirstName(authorFirstName);
 		setAuthorLastName(authorLastName);
 		setHasImage(hasImage);
+		setPhotoUrl(photoUrl);
+		setThumbUrl(thumbUrl);
 	}
 
 	/**
@@ -89,5 +93,33 @@ public class Post {
 	 */
 	public void setHasImage(boolean hasImage) {
 		this.hasImage = hasImage;
+	}
+
+	/**
+	 * @return the photoUrl
+	 */
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	/**
+	 * @param photoUrl the photoUrl to set
+	 */
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	/**
+	 * @return the thumbUrl
+	 */
+	public String getThumbUrl() {
+		return thumbUrl;
+	}
+
+	/**
+	 * @param thumbUrl the thumbUrl to set
+	 */
+	public void setThumbUrl(String thumbUrl) {
+		this.thumbUrl = thumbUrl;
 	}
 }

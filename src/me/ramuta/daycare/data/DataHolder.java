@@ -2,6 +2,10 @@ package me.ramuta.daycare.data;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.util.Log;
 
 import me.ramuta.daycare.object.Child;
@@ -25,13 +29,6 @@ public class DataHolder {
 	
 	// initialize some dummy data
 	public void init() {
-		// posts
-		Post post1 = new Post("1", "Odpravljamo se na sprehod.", "Maja", "Novak", false);
-		Post post2 = new Post("2", "Obiskal nas je Božièek.", "Tina", "Bambina", false);
-		Post post3 = new Post("3", "Danes imamo risarsko delavnico", "Maja", "Novak", false);		
-		posts.add(post1);
-		posts.add(post2);
-		posts.add(post3);
 		
 		// group and children
 		Child child1 = new Child("1", "Tin", "Binbin");
@@ -75,6 +72,49 @@ public class DataHolder {
 		events.add(event1);
 		events.add(event2);
 		events.add(event3);
+	}
+	
+	/*
+	 * Set post objects for creating news stream.
+	 */
+	public void setPostObjects(String response) {
+		posts.clear();
+		try {
+			JSONArray jArray = new JSONArray(response);
+			
+			JSONObject jObject = null;
+			for(int i = 0; i < jArray.length(); i++) {
+				jObject = jArray.getJSONObject(i);
+				
+				String postID = jObject.getString("PostId");
+				String text = jObject.getString("Note");
+				String name = jObject.getString("AuthorName");
+				String lastName = jObject.getString("AuthorSurname");
+				
+				JSONObject jPhoto = jObject.getJSONObject("Photo");
+				
+				String photoUrl = jPhoto.getString("PhotoUrl");
+				String thumbUrl = jPhoto.getString("ThumbUrl");
+				
+				Post post;
+				boolean hasImage;
+				
+				if (photoUrl.equals("URL")) {
+					hasImage = false;
+					post = new Post(postID, text, name, lastName, hasImage, null, null);
+				} else {
+					hasImage = true;
+					post = new Post(postID, text, name, lastName, hasImage, photoUrl, thumbUrl);
+				}
+				
+				//Log.i(TAG, text+", "+name+", "+hasImage+", "+photoUrl);
+				
+				posts.add(post);
+			}
+			
+		} catch (JSONException e) {
+			Log.e(TAG, "json ex: "+e);
+		}
 	}
 	
 	/**

@@ -9,6 +9,7 @@
     <string name="menu_add_news">Dodaj novico</string>
     <string name="menu_add_photo">Dodaj fotko</string>
     <string name="menu_send_news">Pošlji</string>
+    <string name="menu_logout">Odjava</string>
     
     <!-- LoginActivity -->
     <string name="prompt_email">Email</string>

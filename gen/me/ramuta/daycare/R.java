@@ -842,8 +842,8 @@ containing a value of this type.
         public static final int menu_add_news=0x7f040042;
         public static final int menu_add_photo=0x7f040043;
         public static final int menu_forgot_password=0x7f040041;
+        public static final int menu_logout=0x7f040044;
         public static final int menu_send_news=0x7f040040;
-        public static final int menu_settings=0x7f040044;
         public static final int news_author=0x7f04003f;
         public static final int news_text=0x7f04003e;
         public static final int normal=0x7f040001;
@@ -933,38 +933,41 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090009;
-        public static final int action_sign_in_register=0x7f090012;
-        public static final int action_sign_in_short=0x7f090013;
-        public static final int add_news_select_group=0x7f090029;
-        public static final int add_news_send=0x7f09002a;
-        public static final int add_news_text=0x7f090028;
+        public static final int action_sign_in_register=0x7f090013;
+        public static final int action_sign_in_short=0x7f090014;
+        public static final int add_news_select_group=0x7f09002c;
+        public static final int add_news_send=0x7f09002d;
+        public static final int add_news_text=0x7f09002b;
         /**  AddPhotoActivity 
  AddPhotoActivity 
          */
-        public static final int add_photo_comment=0x7f09002c;
-        public static final int add_photo_send=0x7f09002d;
+        public static final int add_photo_comment=0x7f09002f;
+        public static final int add_photo_send=0x7f090030;
         /**  AgendaFragment 
  AgendaFragment 
          */
-        public static final int agenda_empty_message=0x7f090026;
+        public static final int agenda_empty_message=0x7f090029;
         public static final int app_name=0x7f09000a;
         /**  CameraActivity 
  CameraActivity 
          */
-        public static final int camera_button_text=0x7f09002f;
-        public static final int error_field_required=0x7f090019;
-        public static final int error_incorrect_password=0x7f090018;
-        public static final int error_invalid_email=0x7f090016;
-        public static final int error_invalid_password=0x7f090017;
+        public static final int camera_button_text=0x7f090032;
+        public static final int error_field_required=0x7f09001a;
+        public static final int error_incorrect_password=0x7f090019;
+        public static final int error_invalid_email=0x7f090017;
+        public static final int error_invalid_password=0x7f090018;
         public static final int hello_world=0x7f09000b;
-        public static final int image_box_camera=0x7f090024;
-        public static final int image_box_gallery=0x7f090023;
-        public static final int image_box_message=0x7f090022;
-        public static final int image_box_title=0x7f090021;
-        public static final int login_progress_signing_in=0x7f090015;
+        public static final int image_box_camera=0x7f090025;
+        public static final int image_box_gallery=0x7f090024;
+        public static final int image_box_message=0x7f090023;
+        public static final int image_box_title=0x7f090022;
+        public static final int login_progress_signing_in=0x7f090016;
+        public static final int logout_dialog_text=0x7f090027;
+        public static final int logout_dialog_title=0x7f090026;
         public static final int menu_add_news=0x7f09000d;
         public static final int menu_add_photo=0x7f09000e;
-        public static final int menu_forgot_password=0x7f090014;
+        public static final int menu_forgot_password=0x7f090015;
+        public static final int menu_logout=0x7f090010;
         public static final int menu_send_news=0x7f09000f;
         /**  Menu 
  Menu 
@@ -973,31 +976,31 @@ containing a value of this type.
         /**  NewsFragment 
  NewsFragment 
          */
-        public static final int news_empty_message=0x7f090025;
+        public static final int news_empty_message=0x7f090028;
         /**  LoginActivity 
  LoginActivity 
          */
-        public static final int prompt_email=0x7f090010;
-        public static final int prompt_password=0x7f090011;
-        public static final int result_camera_none=0x7f090020;
+        public static final int prompt_email=0x7f090011;
+        public static final int prompt_password=0x7f090012;
+        public static final int result_camera_none=0x7f090021;
         /**  SelectGroupDialogFragment 
  SelectGroupDialogFragment 
          */
-        public static final int select_group_title=0x7f09002b;
-        public static final int tab_agenda_title=0x7f09001e;
-        public static final int tab_gallery_title=0x7f09001d;
-        public static final int tab_group_title=0x7f09001c;
-        public static final int tab_menu_title=0x7f09001f;
-        public static final int tab_news_title=0x7f09001b;
+        public static final int select_group_title=0x7f09002e;
+        public static final int tab_agenda_title=0x7f09001f;
+        public static final int tab_gallery_title=0x7f09001e;
+        public static final int tab_group_title=0x7f09001d;
+        public static final int tab_menu_title=0x7f090020;
+        public static final int tab_news_title=0x7f09001c;
         /**  AddNewsActivity 
  AddNewsActivity 
          */
-        public static final int title_activity_add_news=0x7f090027;
-        public static final int title_activity_add_photo=0x7f09002e;
+        public static final int title_activity_add_news=0x7f09002a;
+        public static final int title_activity_add_photo=0x7f090031;
         /**  MainActivity 
  MainActivity 
          */
-        public static final int title_activity_main=0x7f09001a;
+        public static final int title_activity_main=0x7f09001b;
     }
     public static final class style {
         /** 

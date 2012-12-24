@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -90,6 +91,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 		}
 
   		if (!(mEmail == null)) { // if the previous login is saved, start auth service
+  			mEmailView.setInputType(InputType.TYPE_NULL);
   			showProgress(true);
   			startAuthService();
   		} else { // otherwise ask for login
@@ -97,6 +99,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 			// Set up the login form.
 			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 			
+			mEmailView.requestFocus();
 			mEmailView.setText(mEmail);
 	
 			

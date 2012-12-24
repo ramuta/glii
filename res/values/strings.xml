@@ -9,6 +9,7 @@
     <string name="menu_add_news">Add news</string>
     <string name="menu_add_photo">Add photo</string>
     <string name="menu_send_news">Send</string>
+    <string name="menu_logout">Logout</string>
     
     <!-- LoginActivity -->
     <string name="prompt_email">Email</string>
@@ -34,6 +35,8 @@
     <string name="image_box_message">Take a picture with a camera or select it from your gallery.</string>
     <string name="image_box_gallery">Gallery</string>
     <string name="image_box_camera">Camera</string>
+    <string name="logout_dialog_title">Logout</string>
+    <string name="logout_dialog_text">Do you really want to logout and exit Glii?</string>
         
     <!-- NewsFragment -->
     <string name="news_empty_message">No results</string>

@@ -1,5 +1,8 @@
 package me.ramuta.daycare.activity;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -20,6 +23,9 @@ import me.ramuta.daycare.service.MainService;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -108,8 +114,13 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		/*
 		case R.id.menu_settings:
 			Log.i(TAG, "Settings");
+			return true;
+		*/
+		case R.id.menu_logout:
+			logoutAlertDialog();
 			return true;
 		case R.id.menu_add_news:
 			Intent addNewsIntent = new Intent(MainActivity.this, AddNewsActivity.class);
@@ -121,6 +132,33 @@ public class MainActivity extends SherlockFragmentActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void logoutAlertDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		AlertDialog dialog;
+		builder.setTitle(R.string.logout_dialog_title);
+		builder.setMessage(R.string.logout_dialog_text);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   logout();
+		           }
+		       });
+		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		               dialog.dismiss();
+		           }
+		       });
+
+		// Create the AlertDialog
+		dialog = builder.create();
+		dialog.show();
+	}
+
+	private void logout() {
+		SharedPreferences loginPrefs = getSharedPreferences("LoginActivity", 0);
+		loginPrefs.edit().clear().commit();
+		MainActivity.this.finish();
 	}
 	
 	@Override
