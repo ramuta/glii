@@ -58,11 +58,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_main);
 		Log.i(TAG, "MainActivity started");
 		
-		// TODO: to se bo klicalo po avtentikaciji
-		//Intent intent = new Intent(MainActivity.this, MainService.class);
-		//startService(intent);
-		//Log.i(TAG, "intent for service sent");
-		
 		// data holder z nekaj dummy objekti
 		DataHolder dataHolder = new DataHolder();
 		dataHolder.init();	
@@ -134,6 +129,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 	
+	/** AlertDialog that asks you if you really want to logout. */
 	private void logoutAlertDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 		AlertDialog dialog;
@@ -155,6 +151,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		dialog.show();
 	}
 
+	/** logout by deleting saved email and password and closing app. */
 	private void logout() {
 		SharedPreferences loginPrefs = getSharedPreferences("LoginActivity", 0);
 		loginPrefs.edit().clear().commit();

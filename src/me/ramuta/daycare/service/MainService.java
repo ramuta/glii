@@ -18,6 +18,7 @@ import me.ramuta.daycare.data.UrlHelper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
@@ -25,11 +26,15 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.params.CookiePolicy;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.BasicClientCookie;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
@@ -37,6 +42,7 @@ import org.json.JSONException;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
 public class MainService extends IntentService {
@@ -71,17 +77,21 @@ public class MainService extends IntentService {
 	
 	public void getStream5() {		
 		try {
-			HttpClient httpclient = new DefaultHttpClient(getHttpParams());
+			// parametri - niso nujni
+			HttpParams myParams = new BasicHttpParams();
+			HttpConnectionParams.setSoTimeout(myParams, 10000);
+			HttpConnectionParams.setConnectionTimeout(myParams, 10000); // Timeout
+			
+			// http client in httpget
+			HttpClient httpclient = new DefaultHttpClient(myParams);
 			HttpGet httpget = new HttpGet(UrlHelper.getStreamUrl());
 			
-			Log.i(TAG, "auth cookie: "+UrlHelper.getAuthCookie());
-			//httpget.setHeader("Cookie", UrlHelper.getAuthCookie());
+			Log.i(TAG, "auth cookie: "+UrlHelper.getAuthCookie()); // cookie v LogCatu, poglej èe je isti kot tisti ki pride do web apija
+						
+			httpget.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
 			
-			//BasicClientCookie cookie = new BasicClientCookie("Cookie", UrlHelper.getAuthCookie());
+			HttpResponse response = httpclient.execute(httpget); // PROBLEM: v responseu dobimo 401 unauthorized. Preveri ali pride cookie do serverja in kakšen je (primerjaj ga s cookijem v logu)
 			
-			//httpclient.getCookieStore().addCookie(cookie);
-			
-			HttpResponse response = httpclient.execute(httpget);
 			HttpEntity entity = response.getEntity();
    	     	is = entity.getContent();
 		} catch (ClientProtocolException e) {
@@ -102,14 +112,15 @@ public class MainService extends IntentService {
 	        	sb.append(line + "\n");
 	        }        
 	        is.close();
-	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
-	        dataHolder.setPostObjects(streamResponse); // make post objects from json response
 	        Log.i(TAG, "Stream get response: " + sb.toString());
+	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+	        dataHolder.setPostObjects(streamResponse); // make post objects from json response	        
     	} catch(Exception e){
     		Log.e(TAG, "Error converting result "+e.toString());
     	}
 	}
 	
+	/*
 	private HttpParams getHttpParams() {
 		HttpParams htpp = new BasicHttpParams();
 
@@ -118,6 +129,7 @@ public class MainService extends IntentService {
 
 		return htpp;
 	}
+	*/
 
 	/*
 	// get home stream
@@ -130,8 +142,9 @@ public class MainService extends IntentService {
     	     HttpClient httpclient = new DefaultHttpClient();
     	     HttpPost httppost = new HttpPost(UrlHelper.getStreamUrl());
     	     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-    	     httppost.setHeader("Accept","application/json");
-    	     httppost.setHeader("Content-type","application/json");
+    	     //httppost.setHeader("Accept","application/json");
+    	     //httppost.setHeader("Content-type","application/json");
+    	     httppost.setHeader("Cookie", UrlHelper.getAuthCookie());
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();
     	     is = entity.getContent();
@@ -156,7 +169,8 @@ public class MainService extends IntentService {
     	}
 	}
 	*/
-		
+
+		/*
 		public void getStream4() {
 			URL url = null;
 			try {
@@ -168,8 +182,10 @@ public class MainService extends IntentService {
 			   HttpURLConnection urlConnection = null;
 			try {
 				urlConnection = (HttpURLConnection) url.openConnection();
-				
+				//urlConnection.setDoInput(true);
+				//urlConnection.setDoOutput(true);
 				urlConnection.setRequestProperty("Cookie", UrlHelper.getAuthCookie());
+				
 				
 				InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 				BufferedReader reader = new BufferedReader(new InputStreamReader(in,HTTP.UTF_8),8);
@@ -188,23 +204,7 @@ public class MainService extends IntentService {
 			} finally {
 			     urlConnection.disconnect();
 			   }
-			   
 
 			   
-			   /*
-			   HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			   try {
-			     urlConnection.setDoOutput(true);
-			     urlConnection.setChunkedStreamingMode(0);
-
-			     OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
-			     writeStream(out);
-
-			     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-			     readStream(in);
-			   } finally {
-			     urlConnection.disconnect();
-			   }
-			   */
-		}
+		} */
 }
