@@ -2,7 +2,8 @@ package me.ramuta.daycare.data;
 
 public class UrlHelper {
 	private static final String AUTH_COOKIE_URL = "http://api.glii.me/api/AccountLocal/Post";
-	private static final String STREAM_URL = "http://api.glii.me/api/Post/GetPostsA";
+	private static final String STREAM_URL = "http://api.glii.me/api/Post/Get";
+	private static final String GROUP_URL = "http://api.glii.me/api/Group/Get";
 	private static String authCookie;
 
 	/** Get stream news.
@@ -31,5 +32,12 @@ public class UrlHelper {
 	 */
 	public static void setAuthCookie(String authCookie) {
 		UrlHelper.authCookie = authCookie;
+	}
+
+	/**
+	 * @return the groupUrl
+	 */
+	public static String getGroupUrl() {
+		return GROUP_URL;
 	}
 }

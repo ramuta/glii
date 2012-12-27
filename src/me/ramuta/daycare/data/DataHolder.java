@@ -18,8 +18,8 @@ public class DataHolder {
 	private static final String TAG = "DataHolder";
 	
 	private static ArrayList<Post> posts = new ArrayList<Post>();
-	private static ArrayList<Child> children = new ArrayList<Child>();
-	private static ArrayList<String> groups = new ArrayList<String>();
+	//private static ArrayList<Child> children = new ArrayList<Child>();
+	private static ArrayList<Group> groups = new ArrayList<Group>();
 	private static ArrayList<Photo> photos = new ArrayList<Photo>();
 	private static ArrayList<Event> events = new ArrayList<Event>();
 	
@@ -30,6 +30,7 @@ public class DataHolder {
 	// initialize some dummy data
 	public void init() {
 		
+		/*
 		// group and children
 		Child child1 = new Child("1", "Tin", "Binbin");
 		child1.setGroup(new Group("Zajèki"));
@@ -52,6 +53,7 @@ public class DataHolder {
 		children.add(child4);
 		children.add(child5);
 		//Log.i(TAG, "otrok1: "+children.get(0).getFirstName());
+		 */
 		
 		// photos
 		Photo photo1 = new Photo("http://www.coastal.ca.gov/publiced/directory/masks.jpg");
@@ -117,9 +119,62 @@ public class DataHolder {
 		}
 	}
 	
+	/** Convert string to group objects for creating groups. */
+	public void setGroupObjects(String groupResponse) {
+		groups.clear();
+		try {
+			JSONArray jArray = new JSONArray(groupResponse);
+			
+			JSONObject jObject = null;
+			for(int i = 0; i < jArray.length(); i++) {
+				jObject = jArray.getJSONObject(i);
+				
+				String groupID = jObject.getString("GroupId");
+				String groupName = jObject.getString("GroupName");
+				
+				JSONArray childJArray = jObject.getJSONArray("Children");
+				
+				ArrayList<Child> tempChildren = new ArrayList<Child>();
+				
+				for (int g = 0; g < childJArray.length(); g++) {
+					JSONObject childJObject = childJArray.getJSONObject(g);
+					String childName = childJObject.getString("Name");
+					String childLastName = childJObject.getString("Surname");
+					String childID = childJObject.getString("ChildId");
+					
+					Child child = new Child(childID, childName, childLastName);
+					child.setImageUrl("http://m5.paperblog.com/i/32/323320/ten-annoying-child-actors-who-have-redeemed-t-L-Lr3kO3.jpeg");
+					tempChildren.add(child);
+				}
+
+				Group group = new Group(groupID, groupName, tempChildren);
+				groups.add(group);
+			}
+			
+		} catch (JSONException e) {
+			Log.e(TAG, "json ex: "+e);
+		}
+	}
+	
+	/** Get arraylist of all children in all groups. */
+	public ArrayList<Child> getAllChildren() {
+		ArrayList<Child> allChildren = new ArrayList<Child>();
+		
+		for (int c = 0; c < groups.size(); c++) {
+			Group group = groups.get(c);
+			
+			for (int cg = 0; cg < group.getChildren().size(); cg++) {
+				Child gChild = group.getChildren().get(cg);
+				allChildren.add(gChild);
+			}
+		}
+		
+		return allChildren;
+	}
+	
 	/**
 	 * Insert group name and you'll get an arraylist of children objects in that group.
-	 *  */
+	 *  
 	public ArrayList<Child> getChildrenByGroup(String group) {
 		ArrayList<Child> groupChildren = new ArrayList<Child>();
 		if (group.equals("Vsi")) {
@@ -136,7 +191,7 @@ public class DataHolder {
 			return groupChildren;
 		}
 
-	}
+	}*/
 
 	/**
 	 * @return the posts
@@ -153,30 +208,16 @@ public class DataHolder {
 	}
 
 	/**
-	 * @return the children
-	 */
-	public static ArrayList<Child> getChildren() {
-		return children;
-	}
-
-	/**
-	 * @param children the children to set
-	 */
-	public static void setChildren(ArrayList<Child> children) {
-		DataHolder.children = children;
-	}
-
-	/**
 	 * @return the groups
 	 */
-	public static ArrayList<String> getGroups() {
+	public static ArrayList<Group> getGroups() {
 		return groups;
 	}
 
 	/**
 	 * @param groups the groups to set
 	 */
-	public static void setGroups(ArrayList<String> groups) {
+	public static void setGroups(ArrayList<Group> groups) {
 		DataHolder.groups = groups;
 	}
 

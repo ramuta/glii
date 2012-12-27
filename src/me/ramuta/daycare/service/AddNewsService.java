@@ -49,6 +49,7 @@ public class AddNewsService extends IntentService {
 		
 		boolean withPhoto = intent.getBooleanExtra(AddNewsActivity.WITH_PHOTO, false); // true: with photo, false: without photo
 		String comment = intent.getStringExtra(AddNewsActivity.COMMENT); // comment
+		String group = intent.getStringExtra(AddNewsActivity.GROUP);
 		
 		String photoPath = null;
 		
@@ -59,15 +60,16 @@ public class AddNewsService extends IntentService {
 		
 		Log.i(TAG, "comment: "+comment+", with photo? "+withPhoto+", photoPath: "+photoPath);
 		
-		addNews(withPhoto, comment, photoPath);
+		addNews(withPhoto, comment, photoPath, group);
 	}
 
 	// get home stream
-	private void addNews(boolean withPhoto, String comment, String photoPath) {		
+	private void addNews(boolean withPhoto, String comment, String photoPath, String group) {		
 		MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
 		try {
 			reqEntity.addPart("Note", new StringBody(comment));
+			reqEntity.addPart("Group", new StringBody(group));
 			
 			if (withPhoto) {
 				Log.i(TAG, "also sending photo");
@@ -81,7 +83,7 @@ public class AddNewsService extends IntentService {
     	// http post 
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
-    	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post");
+    	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post/Post");
     	     httppost.setEntity(reqEntity);
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();

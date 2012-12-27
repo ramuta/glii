@@ -10,6 +10,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 import me.ramuta.daycare.R;
+import me.ramuta.daycare.activity.LoginActivity.ResponseReceiver;
 import me.ramuta.daycare.adapter.TabsAdapter;
 import me.ramuta.daycare.data.CameraHelper;
 import me.ramuta.daycare.data.DataHolder;
@@ -21,8 +22,11 @@ import me.ramuta.daycare.fragment.GroupFragment;
 import me.ramuta.daycare.fragment.NewsFragment;
 import me.ramuta.daycare.service.MainService;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -51,12 +55,20 @@ public class MainActivity extends SherlockFragmentActivity {
  	private final static int GALLERY_REQUEST_CODE = 111;
  	private final static int CAMERA_REQUEST_CODE = 222;
  	public static final String PIC_PATH = "getpicpath";
+ 	
+ 	//
+ 	private MainResponseReceiver receiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		Log.i(TAG, "MainActivity started");
+		
+		IntentFilter filter = new IntentFilter(MainResponseReceiver.MAIN_ACTION_RESP);
+  		filter.addCategory(Intent.ACTION_DEFAULT);
+  		receiver = new MainResponseReceiver();
+  		registerReceiver(receiver, filter);
 		
 		// data holder z nekaj dummy objekti
 		DataHolder dataHolder = new DataHolder();
@@ -91,6 +103,17 @@ public class MainActivity extends SherlockFragmentActivity {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
         
+	}
+	
+	public class MainResponseReceiver extends BroadcastReceiver {
+		public static final String MAIN_ACTION_RESP = "daycare.ramuta.intent.action.MESSAGE_PROCESSED";
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			//mTabHost.invalidate();
+		}
+
 	}
 	
 	@Override
@@ -227,5 +250,11 @@ public class MainActivity extends SherlockFragmentActivity {
     private void goToCameraActivity() {
     	Intent cameraIntent = new Intent(this, CameraActivity.class);
     	startActivity(cameraIntent);
+    }
+    
+    @Override
+    public void onDestroy() {
+    	this.unregisterReceiver(receiver);
+    	super.onDestroy();
     }
 }

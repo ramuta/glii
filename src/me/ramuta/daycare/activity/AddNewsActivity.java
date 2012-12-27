@@ -29,6 +29,7 @@ public class AddNewsActivity extends SherlockFragmentActivity {
 	
 	public static final String WITH_PHOTO = "withphoto";
 	public static final String COMMENT = "comment";
+	public static final String GROUP = "group";
 	
 	// actionbar
 	private ActionBar actionBar;
@@ -59,12 +60,11 @@ public class AddNewsActivity extends SherlockFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "Send button");
-				Intent addPostIntent = new Intent(AddNewsActivity.this, AddNewsService.class);
-				addPostIntent.putExtra(WITH_PHOTO, false);
-				addPostIntent.putExtra(COMMENT, commentBox.getText().toString());
-				startService(addPostIntent);
+				
 				showSelectGroupDialog();
 			}
+
+			
 		});
     }
 	
@@ -97,6 +97,10 @@ public class AddNewsActivity extends SherlockFragmentActivity {
 	private void showSelectGroupDialog() {
 		FragmentManager fm = getSupportFragmentManager();
 		SelectGroupDialogFragment groupDialog = new SelectGroupDialogFragment();
+		Bundle args = new Bundle();
+		args.putString(COMMENT, commentBox.getText().toString());
+		args.putBoolean(AddNewsActivity.WITH_PHOTO, false);
+		groupDialog.setArguments(args);
 		groupDialog.show(fm, "dialog");
 	}
 }

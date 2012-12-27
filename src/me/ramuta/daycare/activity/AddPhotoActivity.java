@@ -1,11 +1,16 @@
 package me.ramuta.daycare.activity;
 
 import me.ramuta.daycare.R;
+import me.ramuta.daycare.fragment.SelectGroupDialogFragment;
 import me.ramuta.daycare.service.AddNewsService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,13 +20,14 @@ import android.widget.ImageView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-public class AddPhotoActivity extends SherlockActivity {
+public class AddPhotoActivity extends SherlockFragmentActivity {
 	private static final String TAG = "AddPhotoActivity";
 	
 	public static final String PHOTO_PATH = "photopath";
@@ -78,7 +84,7 @@ public class AddPhotoActivity extends SherlockActivity {
 		sendPhoto.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				startingSendService();
+				showSelectGroupDialog();
 			}
 		});
 	}
@@ -99,7 +105,7 @@ public class AddPhotoActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_send_news:
-			startingSendService();
+			showSelectGroupDialog();
 			return true;
 		case android.R.id.home:
 			AddPhotoActivity.this.finish();
@@ -109,6 +115,7 @@ public class AddPhotoActivity extends SherlockActivity {
 		}
 	}
 
+	/*
 	private void startingSendService() {
 		Intent sendServiceIntent = new Intent(AddPhotoActivity.this, AddNewsService.class);
 		sendServiceIntent.putExtra(AddNewsActivity.WITH_PHOTO, true);
@@ -116,5 +123,17 @@ public class AddPhotoActivity extends SherlockActivity {
 		sendServiceIntent.putExtra(PHOTO_PATH, imagePath);
 		startService(sendServiceIntent);
 		AddPhotoActivity.this.finish();
+	}
+	*/
+	
+	private void showSelectGroupDialog() {
+		FragmentManager fm = this.getSupportFragmentManager();
+		SelectGroupDialogFragment groupDialog = new SelectGroupDialogFragment();
+		Bundle args = new Bundle();
+		args.putString(AddNewsActivity.COMMENT, commentBox.getText().toString());
+		args.putBoolean(AddNewsActivity.WITH_PHOTO, true);
+		args.putString(PHOTO_PATH, imagePath);
+		groupDialog.setArguments(args);
+		groupDialog.show(fm, "dialog");
 	}
 }

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import me.ramuta.daycare.activity.LoginActivity.ResponseReceiver;
+import me.ramuta.daycare.activity.MainActivity.MainResponseReceiver;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.data.UrlHelper;
 
@@ -71,8 +73,17 @@ public class MainService extends IntentService {
 		// TODO Auto-generated method stub
 		Log.i(TAG, "zaèetek servicea");
 		
-		getStream5();
+		//getStream5();
 		
+		dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl())); // make post objects from json response
+		dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
+		
+		// pošlji linke prek intenta
+		Intent broadcastIntent = new Intent();
+		broadcastIntent.setAction(MainResponseReceiver.MAIN_ACTION_RESP);
+		broadcastIntent.addCategory(Intent.ACTION_DEFAULT);
+		//broadcastIntent.putExtra(SUCCESS_RESPONSE, success);
+		sendBroadcast(broadcastIntent);	
 	}
 	
 	public void getStream5() {		
@@ -207,4 +218,51 @@ public class MainService extends IntentService {
 
 			   
 		} */
+	
+	private String getData(String url) {
+		try {
+			// parametri - niso nujni
+			HttpParams myParams = new BasicHttpParams();
+			HttpConnectionParams.setSoTimeout(myParams, 10000);
+			HttpConnectionParams.setConnectionTimeout(myParams, 10000); // Timeout
+			
+			// http client in httpget
+			HttpClient httpclient = new DefaultHttpClient(myParams);
+			HttpGet httpget = new HttpGet(url);
+			
+			Log.i(TAG, "auth cookie: "+UrlHelper.getAuthCookie()); // cookie v LogCatu, poglej èe je isti kot tisti ki pride do web apija
+						
+			httpget.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
+			
+			HttpResponse response = httpclient.execute(httpget); // PROBLEM: v responseu dobimo 401 unauthorized. Preveri ali pride cookie do serverja in kakšen je (primerjaj ga s cookijem v logu)
+			
+			HttpEntity entity = response.getEntity();
+   	     	is = entity.getContent();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//convert response to string
+    	try {
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(is
+    				,HTTP.UTF_8
+    				),65728);
+    		sb = new StringBuilder();
+    	    sb.append(reader.readLine() + "\n");
+	        String line="0";	        
+	        while ((line = reader.readLine()) != null) {
+	        	sb.append(line + "\n");
+	        }        
+	        is.close();
+	        Log.i(TAG, "response: " + sb.toString());
+	        String response = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+	        
+	        return response;
+    	} catch(Exception e){
+    		Log.e(TAG, "Error converting result "+e.toString());
+    		return null;
+    	}
+	}
 }
