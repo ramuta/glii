@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import me.ramuta.daycare.activity.AddNewsActivity;
 import me.ramuta.daycare.activity.AddPhotoActivity;
+import me.ramuta.daycare.data.UrlHelper;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -37,7 +38,7 @@ public class AddNewsService extends IntentService {
 	private StringBuilder sb = null;
 	
 	// data variables
-	private String streamResponse;
+	private String response;
 
 	public AddNewsService() {
 		super("AddNewsService");
@@ -58,13 +59,17 @@ public class AddNewsService extends IntentService {
 			photoPath = intent.getStringExtra(AddPhotoActivity.PHOTO_PATH);
 		}
 		
-		Log.i(TAG, "comment: "+comment+", with photo? "+withPhoto+", photoPath: "+photoPath);
+		//group = "";
 		
-		addNews(withPhoto, comment, photoPath, group);
+		Log.i(TAG, "comment: "+comment+", with photo? "+withPhoto+", group: "+group+", photoPath: "+photoPath);
+		
+		response = addNews(withPhoto, comment, photoPath, group);
+		
+		Log.i(TAG, "sending post successful? "+response);
 	}
 
-	// get home stream
-	private void addNews(boolean withPhoto, String comment, String photoPath, String group) {		
+	/** Sends news/comment to server, together with group ID(s). May add a photo. Returns the comment if successful. */
+	private String addNews(boolean withPhoto, String comment, String photoPath, String group) {		
 		MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
 		try {
@@ -83,7 +88,8 @@ public class AddNewsService extends IntentService {
     	// http post 
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
-    	     HttpPost httppost = new HttpPost("http://api.glii.me/api/Post/Post");
+    	     HttpPost httppost = new HttpPost(UrlHelper.getPostUrl());
+    	     //httppost.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
     	     httppost.setEntity(reqEntity);
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();
@@ -102,10 +108,12 @@ public class AddNewsService extends IntentService {
 	        	sb.append(line + "\n");
 	        }        
 	        is.close();
-	        streamResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
-	        Log.i(TAG, "response: " + sb.toString());
+	        String addNewsResponse = sb.toString(); // odgovor (rezultat) ki ga dobimo po poslanem zahtevku
+	        
+	        return addNewsResponse;
     	} catch(Exception e){
     		Log.e(TAG, "Error converting result: "+e.toString());
+    		return null;
     	}
 	}
 	

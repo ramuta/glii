@@ -93,15 +93,26 @@ public class DataHolder {
 				String name = jObject.getString("AuthorName");
 				String lastName = jObject.getString("AuthorSurname");
 				
-				JSONObject jPhoto = jObject.getJSONObject("Photo");
+				JSONObject jPhoto;
+				String photoUrl = "";
+				String thumbUrl = "";
 				
-				String photoUrl = jPhoto.getString("PhotoUrl");
-				String thumbUrl = jPhoto.getString("ThumbUrl");
+				// try catch if Photo parameter is null
+				try {
+					jPhoto = jObject.getJSONObject("Photo");
+					
+					photoUrl = jPhoto.getString("PhotoUrl");
+					thumbUrl = jPhoto.getString("ThumbUrl");
+				} catch (Exception e) {
+					jPhoto = null;
+					photoUrl = "";
+					thumbUrl = "";
+				}
 				
 				Post post;
 				boolean hasImage;
 				
-				if (photoUrl.equals("URL")) {
+				if (photoUrl.equals("")) {
 					hasImage = false;
 					post = new Post(postID, text, name, lastName, hasImage, null, null);
 				} else {
