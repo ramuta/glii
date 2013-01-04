@@ -13,16 +13,19 @@ public class Child {
 	private String daycare;
 	private Group group;
 	private String imageUrl;
+	private String thumbUrl;
 	
 	public Child() {
 		super();
 	}
 	
-	public Child(String ID, String firstName, String lastName) {
+	public Child(String ID, String firstName, String lastName, String imageUrl, String thumbUrl) {
 		super();
 		setID(ID);
 		setFirstName(firstName);
 		setLastName(lastName);
+		setImageUrl(imageUrl);
+		setThumbUrl(thumbUrl);
 	}
 	
 	/**
@@ -170,5 +173,19 @@ public class Child {
 	 */
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	/**
+	 * @return the thumbUrl
+	 */
+	public String getThumbUrl() {
+		return thumbUrl;
+	}
+
+	/**
+	 * @param thumbUrl the thumbUrl to set
+	 */
+	public void setThumbUrl(String thumbUrl) {
+		this.thumbUrl = thumbUrl;
 	}
 }

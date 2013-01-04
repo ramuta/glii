@@ -63,7 +63,7 @@ public class CameraHelper {
         } else {
             	return null;
         }
-        // TODO: daj photoPath v LefemmeUser statièno metodo
+        
         setPhotoPath("/mnt/sdcard/Pictures/"+DIRECTORY+"/"+PREFIX+ timeStamp + ".jpg");        
         return mediaFile;
     }

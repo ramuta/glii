@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- Author -->
+    <TextView
+        android:id="@+id/news_details_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mojca Pokrajculja"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp" />
+    
+    <!-- Group -->
+    <TextView
+        android:id="@+id/news_details_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zajčki"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp" />
+    
+    <!-- Text -->
+    <TextView
+        android:id="@+id/news_details_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Danes nas je obiskal Božiček."
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp" />
+    
+    <!-- Image (if any) -->
+    <ImageView
+        android:id="@+id/news_details_image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="center" />
+
+</LinearLayout>

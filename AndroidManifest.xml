@@ -42,6 +42,14 @@
             android:label="@string/title_activity_add_photo" />
         
         <activity
+            android:name="me.ramuta.daycare.activity.NewsDetailsActivity"
+            android:label="@string/title_activity_news_details" />
+        
+        <activity
+            android:name="me.ramuta.daycare.activity.ChildDetailsActivity"
+            android:label="@string/title_activity_child_details" />
+        
+        <activity
             android:name="me.ramuta.daycare.activity.CameraActivity"
             android:theme="@style/Theme.Sherlock.NoActionBar"
             android:configChanges="keyboard|keyboardHidden|orientation"

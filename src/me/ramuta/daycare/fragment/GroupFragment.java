@@ -3,16 +3,19 @@ package me.ramuta.daycare.fragment;
 import java.util.ArrayList;
 
 import me.ramuta.daycare.R;
+import me.ramuta.daycare.activity.ChildDetailsActivity;
 import me.ramuta.daycare.adapter.GroupAdapter;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.object.Child;
 import me.ramuta.daycare.object.Group;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -26,6 +29,10 @@ public class GroupFragment extends SherlockFragment {
 	// data
 	private DataHolder dataHolder = new DataHolder();	
 	ArrayList<Child> groupChildren = new ArrayList<Child>();
+	private int GROUP_FLAG = 0;
+	
+	public static final String GROUP_FLAG_STRING = "groupflag";
+	public static final String POSITION_STRING = "positionstring";
 	
 	// spinner
 	ArrayAdapter<String> groupAdapter;
@@ -86,6 +93,7 @@ public class GroupFragment extends SherlockFragment {
 		imageAdapter = new GroupAdapter(getActivity(), groupChildren);
 		
 		grid.setAdapter(imageAdapter);
+		grid.setOnItemClickListener(childListener);
 	}
 	
 	// click listener for spinner
@@ -98,7 +106,8 @@ public class GroupFragment extends SherlockFragment {
 			for (int x = 0; x < dataHolder.getGroups().size(); x++) {
 				Group sGroup = dataHolder.getGroups().get(x);
 				if (sGroup.getName().equals(group)) {
-					Log.i(TAG, "JE enako ime");
+					Log.i(TAG, "group flag: "+x);
+					GROUP_FLAG = x;
 					groupChildren = sGroup.getChildren();
 					//imageAdapter = new GroupAdapter(getActivity(), groupChildren);
 				} else if (group.equals("All")) {
@@ -112,6 +121,7 @@ public class GroupFragment extends SherlockFragment {
 			imageAdapter = new GroupAdapter(getActivity(), groupChildren);
 			
 			grid.setAdapter(imageAdapter);
+			grid.setOnItemClickListener(childListener);
 			
 			for (int y = 0; y < groupChildren.size(); y++) {
 				Child theChild = groupChildren.get(y);				
@@ -121,5 +131,19 @@ public class GroupFragment extends SherlockFragment {
 
 		@Override
 		public void onNothingSelected(AdapterView<?> arg0) {}
+	};
+	
+	// click listener for child details
+	private OnItemClickListener childListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Log.i(TAG, "KLIK: "+position+", group flag: "+GROUP_FLAG);
+			
+			Intent childIntent = new Intent(getActivity(), ChildDetailsActivity.class);
+			childIntent.putExtra(POSITION_STRING, position);
+			childIntent.putExtra(GROUP_FLAG_STRING, GROUP_FLAG);
+			startActivity(childIntent);
+		}
 	};
 }

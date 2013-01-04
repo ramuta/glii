@@ -154,7 +154,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 				}
 				
             } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                   
                     e.printStackTrace();
             }
         }
@@ -171,7 +171,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 		mEmailView.setError(null);
 		mPasswordView.setError(null);
 
-		// Store values at the time of the login attempt. TODO: shrani v shared prefs!
+		// Store values at the time of the login attempt. 
 		mEmail = mEmailView.getText().toString();		
 		mPassword = mPasswordView.getText().toString();
 		login = new Login(mEmail, mPassword); // Save email and password to Login object.

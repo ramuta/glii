@@ -59,12 +59,9 @@ public class AddNewsActivity extends SherlockFragmentActivity {
         sendButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Log.i(TAG, "Send button");
-				
+				Log.i(TAG, "Send button");				
 				showSelectGroupDialog();
-			}
-
-			
+			}	
 		});
     }
 	

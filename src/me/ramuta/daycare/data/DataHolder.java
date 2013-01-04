@@ -30,30 +30,15 @@ public class DataHolder {
 	// initialize some dummy data
 	public void init() {
 		
-		/*
-		// group and children
-		Child child1 = new Child("1", "Tin", "Binbin");
-		child1.setGroup(new Group("Zajèki"));
-		child1.setImageUrl("http://www.ofiriha.org/wp-content/uploads/2010/11/South-Sudanese-child-in-Uganda.jpg");
-		Child child2 = new Child("2", "Ana", "Banana");
-		child2.setGroup(new Group("Medvedki"));
-		child2.setImageUrl("http://m5.paperblog.com/i/32/323320/ten-annoying-child-actors-who-have-redeemed-t-L-Lr3kO3.jpeg");
-		Child child3 = new Child("3", "Mihec", "Pihec");
-		child3.setGroup(new Group("Medvedki"));
-		child3.setImageUrl("http://us.123rf.com/400wm/400/400/oksun70/oksun701206/oksun70120600098/14105323-funny-child-drinking-fruits-over-white-background.jpg");
-		Child child4 = new Child("4", "Denis", "Pokora");
-		child4.setGroup(new Group("Srnice"));
-		child4.setImageUrl("http://i00.i.aliimg.com/wsphoto/v0/672273646/Children-s-clothing-male-child-autumn-2012-drawstring-zipper-tooling-child-outerwear-font-b-tuxedo-b.jpg");
-		Child child5 = new Child("5", "Maja", "Èbelca");
-		child5.setGroup(new Group("Medvedki"));
-		child5.setImageUrl("http://www.cornerstone-astrology.com/astrology-shop/5-13-thickbox/your-child.jpg");
-		children.add(child1);
-		children.add(child2);
-		children.add(child3);
-		children.add(child4);
-		children.add(child5);
-		//Log.i(TAG, "otrok1: "+children.get(0).getFirstName());
-		 */
+		// posts
+		Post post22 = new Post("1", "Obiskal nas je božièek.", "Metka", "Novak", "Zajèki", true, "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg", "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg");
+		Post post33 = new Post("2", "Šli smo na sprehod.", "Vesna", "Mikiè", "Zajèki", true, "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg", "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg");
+		Post post44 = new Post("3", "Danes pojemo pesmice.", "Metka", "Novak", "Srnice", false, null, null);
+		Post post55 = new Post("4", "Imamo risarsko delavnico.", "Metka", "Novak", "Medvedki", true, "http://www.mylhumc.com/images/501_daycare-draw.jpg", "http://www.mylhumc.com/images/501_daycare-draw.jpg");
+		posts.add(post22);
+		posts.add(post33);
+		posts.add(post44);
+		posts.add(post55);
 		
 		// photos
 		Photo photo1 = new Photo("http://www.coastal.ca.gov/publiced/directory/masks.jpg");
@@ -74,6 +59,20 @@ public class DataHolder {
 		events.add(event1);
 		events.add(event2);
 		events.add(event3);
+		
+		// children in a group
+		Child child11 = new Child("1", "Mihec", "Pihec", "http://www.my-childs-future.net/wp-content/uploads/9_3_orig.jpg", "http://www.my-childs-future.net/wp-content/uploads/9_3_orig.jpg");
+		Child child22 = new Child("2", "Ana", "Banana", "http://tusb.stanford.edu/wp-content/uploads/2011/01/Child-pic3.jpg", "http://tusb.stanford.edu/wp-content/uploads/2011/01/Child-pic3.jpg");
+		Child child33 = new Child("3", "Tinca", "Binca", "http://www.expectmorechildcare.com/images/child-laughing-at-day-care2.jpg", "http://www.expectmorechildcare.com/images/child-laughing-at-day-care2.jpg");
+		ArrayList<Child> thisChldrn = new ArrayList<Child>();
+		ArrayList<Child> othrChldrn = new ArrayList<Child>();
+		thisChldrn.add(child11);
+		thisChldrn.add(child22);
+		othrChldrn.add(child33);
+		Group thisGroup = new Group("1", "Zajèki", thisChldrn);
+		Group othrGroup = new Group("2", "Srnice", othrChldrn);
+		groups.add(thisGroup);
+		groups.add(othrGroup);
 	}
 	
 	/*
@@ -114,10 +113,10 @@ public class DataHolder {
 				
 				if (photoUrl.equals("")) {
 					hasImage = false;
-					post = new Post(postID, text, name, lastName, hasImage, null, null);
+					post = new Post(postID, text, name, lastName, null, hasImage, null, null); // TODO: namesto null naj bo grupa
 				} else {
 					hasImage = true;
-					post = new Post(postID, text, name, lastName, hasImage, photoUrl, thumbUrl);
+					post = new Post(postID, text, name, lastName, null, hasImage, photoUrl, thumbUrl);
 				}
 				
 				//Log.i(TAG, text+", "+name+", "+hasImage+", "+photoUrl);
@@ -153,8 +152,24 @@ public class DataHolder {
 					String childLastName = childJObject.getString("Surname");
 					String childID = childJObject.getString("ChildId");
 					
-					Child child = new Child(childID, childName, childLastName);
-					child.setImageUrl("http://m5.paperblog.com/i/32/323320/ten-annoying-child-actors-who-have-redeemed-t-L-Lr3kO3.jpeg");
+					JSONObject jPhoto;
+					String photoUrl = "";
+					String thumbUrl = "";
+					
+					// try catch if Photo parameter is null
+					try {
+						jPhoto = childJObject.getJSONObject("Photo");
+						
+						photoUrl = jPhoto.getString("PhotoUrl");
+						thumbUrl = jPhoto.getString("ThumbUrl");
+					} catch (Exception e) {
+						jPhoto = null;
+						photoUrl = "";
+						thumbUrl = "";
+					}
+					
+					Child child = new Child(childID, childName, childLastName, photoUrl, thumbUrl);
+					//child.setImageUrl("http://m5.paperblog.com/i/32/323320/ten-annoying-child-actors-who-have-redeemed-t-L-Lr3kO3.jpeg");
 					tempChildren.add(child);
 				}
 

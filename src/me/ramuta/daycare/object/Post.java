@@ -5,6 +5,7 @@ public class Post {
 	private String text;
 	private String authorFirstName;
 	private String authorLastName;
+	private String group;
 	private boolean hasImage;
 	private String photoUrl;
 	private String thumbUrl;
@@ -15,11 +16,12 @@ public class Post {
 	}
 	
 	// konstruktor 2
-	public Post(String ID, String text, String authorFirstName, String authorLastName, boolean hasImage, String photoUrl, String thumbUrl) {
+	public Post(String ID, String text, String authorFirstName, String authorLastName, String group, boolean hasImage, String photoUrl, String thumbUrl) {
 		setID(ID);
 		setText(text);
 		setAuthorFirstName(authorFirstName);
 		setAuthorLastName(authorLastName);
+		setGroup(group);
 		setHasImage(hasImage);
 		setPhotoUrl(photoUrl);
 		setThumbUrl(thumbUrl);
@@ -121,5 +123,19 @@ public class Post {
 	 */
 	public void setThumbUrl(String thumbUrl) {
 		this.thumbUrl = thumbUrl;
+	}
+
+	/**
+	 * @return the group
+	 */
+	public String getGroup() {
+		return group;
+	}
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(String group) {
+		this.group = group;
 	}
 }

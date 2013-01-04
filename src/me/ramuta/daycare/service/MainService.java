@@ -70,15 +70,16 @@ public class MainService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent arg0) {
-		// TODO Auto-generated method stub
+		
 		Log.i(TAG, "zaèetek servicea");
 		
 		//getStream5();
 		
-		dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl())); // make post objects from json response
-		dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
+		//dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl())); // make post objects from json response
+		//dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
 		
-		Log.i(TAG, "all children: "+getData(UrlHelper.getChildUrl()));
+		//getData(UrlHelper.getChildUrl()); // TODO: spravi v dataholder
+		//getData(UrlHelper.getGalleryUrl()); // TODO: spravi v dataholder
 		
 		// pošlji linke prek intenta
 		Intent broadcastIntent = new Intent();

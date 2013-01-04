@@ -110,7 +110,7 @@ public class MainActivity extends SherlockFragmentActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
+			
 			//mTabHost.invalidate();
 		}
 

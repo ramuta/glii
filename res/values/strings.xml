@@ -50,6 +50,12 @@
     <string name="add_news_select_group">Select group</string>
     <string name="add_news_send">Send</string>
     
+    <!-- NewsDetailsActivity -->
+    <string name="title_activity_news_details">News details</string>
+    
+    <!-- ChildDetailsActivity -->
+    <string name="title_activity_child_details">Child details</string>
+    
     <!-- SelectGroupDialogFragment -->
     <string name="select_group_title">Select group</string>
     
