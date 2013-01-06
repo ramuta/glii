@@ -783,8 +783,18 @@ containing a value of this type.
         public static final int abs__tab_selected_holo=0x7f020052;
         public static final int abs__tab_selected_pressed_holo=0x7f020053;
         public static final int abs__tab_unselected_pressed_holo=0x7f020054;
-        public static final int ic_action_search=0x7f020055;
-        public static final int ic_launcher=0x7f020056;
+        public static final int content_edit=0x7f020055;
+        public static final int content_new=0x7f020056;
+        public static final int content_new_email=0x7f020057;
+        public static final int content_remove=0x7f020058;
+        public static final int device_access_call=0x7f020059;
+        public static final int device_access_camera=0x7f02005a;
+        public static final int ic_action_search=0x7f02005b;
+        public static final int ic_launcher=0x7f02005c;
+        public static final int navigation_cancel=0x7f02005d;
+        public static final int navigation_refresh=0x7f02005e;
+        public static final int social_send_now=0x7f02005f;
+        public static final int social_share=0x7f020060;
     }
     public static final class id {
         public static final int abs__action_bar=0x7f040022;
@@ -845,6 +855,7 @@ containing a value of this type.
         public static final int menu_add_photo=0x7f04004a;
         public static final int menu_forgot_password=0x7f040048;
         public static final int menu_logout=0x7f04004b;
+        public static final int menu_refresh=0x7f04004c;
         public static final int menu_send_news=0x7f040047;
         public static final int news_author=0x7f040046;
         public static final int news_details_author=0x7f04003a;
@@ -942,80 +953,82 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090009;
-        public static final int action_sign_in_register=0x7f090013;
-        public static final int action_sign_in_short=0x7f090014;
-        public static final int add_news_select_group=0x7f09002c;
-        public static final int add_news_send=0x7f09002d;
-        public static final int add_news_text=0x7f09002b;
+        public static final int action_sign_in_register=0x7f090015;
+        public static final int action_sign_in_short=0x7f090016;
+        public static final int add_news_select_group=0x7f09002e;
+        public static final int add_news_send=0x7f09002f;
+        public static final int add_news_text=0x7f09002d;
         /**  AddPhotoActivity 
  AddPhotoActivity 
          */
-        public static final int add_photo_comment=0x7f090031;
-        public static final int add_photo_send=0x7f090032;
+        public static final int add_photo_comment=0x7f090033;
+        public static final int add_photo_send=0x7f090034;
         /**  AgendaFragment 
  AgendaFragment 
          */
-        public static final int agenda_empty_message=0x7f090029;
+        public static final int agenda_empty_message=0x7f09002b;
         public static final int app_name=0x7f09000a;
         /**  CameraActivity 
  CameraActivity 
          */
-        public static final int camera_button_text=0x7f090034;
-        public static final int error_field_required=0x7f09001a;
-        public static final int error_incorrect_password=0x7f090019;
-        public static final int error_invalid_email=0x7f090017;
-        public static final int error_invalid_password=0x7f090018;
+        public static final int camera_button_text=0x7f090036;
+        public static final int error_field_required=0x7f09001c;
+        public static final int error_incorrect_password=0x7f09001b;
+        public static final int error_invalid_email=0x7f090019;
+        public static final int error_invalid_password=0x7f09001a;
         public static final int hello_world=0x7f09000b;
-        public static final int image_box_camera=0x7f090025;
-        public static final int image_box_gallery=0x7f090024;
-        public static final int image_box_message=0x7f090023;
-        public static final int image_box_title=0x7f090022;
-        public static final int login_progress_signing_in=0x7f090016;
-        public static final int logout_dialog_text=0x7f090027;
-        public static final int logout_dialog_title=0x7f090026;
+        public static final int image_box_camera=0x7f090027;
+        public static final int image_box_gallery=0x7f090026;
+        public static final int image_box_message=0x7f090025;
+        public static final int image_box_title=0x7f090024;
+        public static final int login_progress_signing_in=0x7f090018;
+        public static final int logout_dialog_text=0x7f090029;
+        public static final int logout_dialog_title=0x7f090028;
         public static final int menu_add_news=0x7f09000d;
         public static final int menu_add_photo=0x7f09000e;
-        public static final int menu_forgot_password=0x7f090015;
+        public static final int menu_forgot_password=0x7f090017;
         public static final int menu_logout=0x7f090010;
+        public static final int menu_refresh=0x7f090011;
         public static final int menu_send_news=0x7f09000f;
         /**  Menu 
  Menu 
          */
         public static final int menu_settings=0x7f09000c;
+        public static final int menu_show_popup=0x7f090012;
         /**  NewsFragment 
  NewsFragment 
          */
-        public static final int news_empty_message=0x7f090028;
+        public static final int news_empty_message=0x7f09002a;
         /**  LoginActivity 
  LoginActivity 
          */
-        public static final int prompt_email=0x7f090011;
-        public static final int prompt_password=0x7f090012;
-        public static final int result_camera_none=0x7f090021;
+        public static final int prompt_email=0x7f090013;
+        public static final int prompt_password=0x7f090014;
+        public static final int result_camera_none=0x7f090023;
         /**  SelectGroupDialogFragment 
  SelectGroupDialogFragment 
          */
-        public static final int select_group_title=0x7f090030;
-        public static final int tab_agenda_title=0x7f09001f;
-        public static final int tab_gallery_title=0x7f09001e;
-        public static final int tab_group_title=0x7f09001d;
-        public static final int tab_menu_title=0x7f090020;
-        public static final int tab_news_title=0x7f09001c;
+        public static final int select_group_title=0x7f090032;
+        public static final int tab_agenda_title=0x7f090021;
+        public static final int tab_gallery_title=0x7f090020;
+        public static final int tab_group_title=0x7f09001f;
+        public static final int tab_menu_title=0x7f090022;
+        public static final int tab_news_title=0x7f09001e;
         /**  AddNewsActivity 
  AddNewsActivity 
          */
-        public static final int title_activity_add_news=0x7f09002a;
-        public static final int title_activity_add_photo=0x7f090033;
+        public static final int title_activity_add_news=0x7f09002c;
+        public static final int title_activity_add_photo=0x7f090035;
         /**  ChildDetailsActivity 
          */
-        public static final int title_activity_child_details=0x7f09002f;
+        public static final int title_activity_child_details=0x7f090031;
         /**  MainActivity 
  MainActivity 
          */
-        public static final int title_activity_main=0x7f09001b;
+        public static final int title_activity_main=0x7f09001d;
         /**  NewsDetailsActivity 
          */
-        public static final int title_activity_news_details=0x7f09002e;
+        public static final int title_activity_news_details=0x7f090030;
     }
     public static final class style {
         /** 

@@ -54,6 +54,7 @@ public class NewsDetailsActivity extends SherlockActivity {
         // get intent
         Intent intent = getIntent();
         int position = intent.getIntExtra(NewsFragment.POSITION, 0);
+        int type = intent.getIntExtra(NewsFragment.POST_TYPE, 987);
         
         // initialize view elements
         TextView author = (TextView)findViewById(R.id.news_details_author);
@@ -62,7 +63,12 @@ public class NewsDetailsActivity extends SherlockActivity {
         ImageView image = (ImageView)findViewById(R.id.news_details_image);
         
         // get Post object
-        Post post = DataHolder.getPosts().get(position);
+        Post post = new Post();
+        if (type == 987) {
+        	post = DataHolder.getPosts().get(position);
+        } else if (type == 654) {
+        	post = DataHolder.getPhotos().get(position);
+        }
         
         author.setText(post.getAuthorFirstName()+" "+post.getAuthorLastName());
         group.setText(post.getGroup());

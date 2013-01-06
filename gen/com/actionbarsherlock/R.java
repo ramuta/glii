@@ -372,7 +372,7 @@ public final class R {
 		public static final int abs__progress_bg_holo_light = 0x7f02003c;
 		public static final int abs__dialog_full_holo_dark = 0x7f02001e;
 		public static final int abs__ic_cab_done_holo_light = 0x7f020023;
-		public static final int ic_launcher = 0x7f020056;
+		public static final int ic_launcher = 0x7f02005c;
 		public static final int abs__spinner_ab_default_holo_dark = 0x7f020046;
 		public static final int abs__ic_menu_share_holo_light = 0x7f020029;
 		public static final int abs__tab_unselected_pressed_holo = 0x7f020054;
@@ -405,7 +405,7 @@ public final class R {
 		public static final int abs__ic_menu_moreoverflow_holo_light = 0x7f020025;
 		public static final int abs__item_background_holo_dark = 0x7f02002a;
 		public static final int abs__list_divider_holo_light = 0x7f02002e;
-		public static final int ic_action_search = 0x7f020055;
+		public static final int ic_action_search = 0x7f02005b;
 		public static final int abs__list_pressed_holo_dark = 0x7f020031;
 		public static final int abs__spinner_ab_holo_dark = 0x7f02004c;
 		public static final int abs__item_background_holo_light = 0x7f02002b;

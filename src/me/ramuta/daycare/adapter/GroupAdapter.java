@@ -73,7 +73,7 @@ public class GroupAdapter extends BaseAdapter {
 		
 		ImageView image = (ImageView)view.findViewById(R.id.group_image);
 		
-		imageLoader.displayImage(child.getImageUrl(), image, options);
+		imageLoader.displayImage(child.getThumbUrl(), image, options);
 		
 		return view;
 	}

@@ -65,6 +65,8 @@ public class NewsAdapter extends ArrayAdapter<Post> {
 		
 		if (hasImage) {
 			imageLoader.displayImage(post.getThumbUrl(), image, options);
+		} else {
+			image.setImageResource(R.drawable.navigation_cancel);
 		}
 		
 		return view;

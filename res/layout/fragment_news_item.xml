@@ -9,7 +9,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dp" />
+        android:layout_margin="5dp"
+        android:src="@drawable/navigation_cancel" />
     
     <TextView
         android:id="@+id/news_text"

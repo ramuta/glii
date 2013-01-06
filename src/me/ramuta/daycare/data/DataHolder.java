@@ -20,8 +20,13 @@ public class DataHolder {
 	private static ArrayList<Post> posts = new ArrayList<Post>();
 	//private static ArrayList<Child> children = new ArrayList<Child>();
 	private static ArrayList<Group> groups = new ArrayList<Group>();
-	private static ArrayList<Photo> photos = new ArrayList<Photo>();
+	private static ArrayList<Post> photos = new ArrayList<Post>();
 	private static ArrayList<Event> events = new ArrayList<Event>();
+	
+	// post types
+	public enum PostType {
+		NEWS, GALLERY
+	}
 	
 	public DataHolder() {
 		super();
@@ -41,16 +46,12 @@ public class DataHolder {
 		posts.add(post55);
 		
 		// photos
-		Photo photo1 = new Photo("http://www.coastal.ca.gov/publiced/directory/masks.jpg");
-		Photo photo2 = new Photo("http://img.ehowcdn.com/article-new/ehow/images/a07/g2/9l/daysoftheweek-kindergarten-activities-800x800.jpg");
-		Photo photo3 = new Photo("http://www.colourbox.com/preview/1197822-242755-art-and-craft-activity-in-the-kindergarten.jpg");
-		Photo photo4 = new Photo("http://images.teamsugar.com/files/upl1/10/109609/18_2008/daycare.jpg");
-		Photo photo5 = new Photo("http://www.mnn.com/sites/default/files/main_chanie_kindergarten.jpg");
-		photos.add(photo1);
-		photos.add(photo2);
-		photos.add(photo3);
-		photos.add(photo4);
-		photos.add(photo5);
+		Post post66 = new Post("1", "Obiskal nas je božièek.", "Metka", "Novak", "Zajèki", true, "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg", "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg");
+		Post post77 = new Post("2", "Šli smo na sprehod.", "Vesna", "Mikiè", "Zajèki", true, "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg", "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg");
+		Post post88 = new Post("4", "Imamo risarsko delavnico.", "Metka", "Novak", "Medvedki", true, "http://www.mylhumc.com/images/501_daycare-draw.jpg", "http://www.mylhumc.com/images/501_daycare-draw.jpg");
+		photos.add(post66);
+		photos.add(post77);
+		photos.add(post88);
 		
 		// events
 		Event event1 = new Event("Obisk Dedka Mraza.", "15.12.2012");
@@ -78,7 +79,7 @@ public class DataHolder {
 	/*
 	 * Set post objects for creating news stream.
 	 */
-	public void setPostObjects(String response) {
+	public void setPostObjects(String response, PostType type) {
 		posts.clear();
 		try {
 			JSONArray jArray = new JSONArray(response);
@@ -121,7 +122,12 @@ public class DataHolder {
 				
 				//Log.i(TAG, text+", "+name+", "+hasImage+", "+photoUrl);
 				
-				posts.add(post);
+				if (type == PostType.NEWS) {
+					posts.add(post);
+				} else if (type == PostType.GALLERY) {
+					photos.add(post);
+				}
+				
 			}
 			
 		} catch (JSONException e) {
@@ -250,14 +256,14 @@ public class DataHolder {
 	/**
 	 * @return the photos
 	 */
-	public static ArrayList<Photo> getPhotos() {
+	public static ArrayList<Post> getPhotos() {
 		return photos;
 	}
 
 	/**
 	 * @param photos the photos to set
 	 */
-	public static void setPhotos(ArrayList<Photo> photos) {
+	public static void setPhotos(ArrayList<Post> photos) {
 		DataHolder.photos = photos;
 	}
 

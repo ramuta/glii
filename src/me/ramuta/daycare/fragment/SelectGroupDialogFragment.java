@@ -8,6 +8,8 @@ import me.ramuta.daycare.activity.AddPhotoActivity;
 import me.ramuta.daycare.data.DataHolder;
 import me.ramuta.daycare.object.Group;
 import me.ramuta.daycare.service.AddNewsService;
+import me.ramuta.daycare.service.AuthService;
+import me.ramuta.daycare.service.MainService;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -107,6 +109,7 @@ public class SelectGroupDialogFragment extends DialogFragment {
 	private void sendPost() {
 		Toast.makeText(getActivity(), "Post sent", Toast.LENGTH_SHORT).show();
 		callAddNewsService();
+		refresh();
 		getActivity().finish();
 	}
 	
@@ -133,5 +136,11 @@ public class SelectGroupDialogFragment extends DialogFragment {
 		String[] converted = new String[names.size()];
 		converted = names.toArray(converted);
 		return converted;
+	}
+	
+	/** Refreshes the Main Activity. */
+	private void refresh() {
+		Intent intentMainService = new Intent(getActivity(), MainService.class);
+		getActivity().startService(intentMainService);
 	}
 }

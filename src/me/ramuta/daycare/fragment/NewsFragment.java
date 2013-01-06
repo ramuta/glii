@@ -23,6 +23,7 @@ public class NewsFragment extends SherlockListFragment {
 	private DataHolder dataHolder = new DataHolder();
 	
 	public static final String POSITION = "postposition";
+	public static final String POST_TYPE = "posttype";
 
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class NewsFragment extends SherlockListFragment {
 		Log.i(TAG, "KLIK");
 		Intent detailsIntent = new Intent(getActivity(), NewsDetailsActivity.class);
 		detailsIntent.putExtra(POSITION, position);
+		detailsIntent.putExtra(POST_TYPE, 987);
 		startActivity(detailsIntent);
 	}
 }

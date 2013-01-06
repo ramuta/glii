@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.ramuta.daycare.R;
 import me.ramuta.daycare.object.Child;
 import me.ramuta.daycare.object.Photo;
+import me.ramuta.daycare.object.Post;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,12 +23,12 @@ private static final String TAG = "GalleryAdapter";
 	
 	private Context mContext;
 	
-	private ArrayList<Photo> photos;
+	private ArrayList<Post> photos;
 	private LayoutInflater li;
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
 	
-	public GalleryAdapter(Context c, ArrayList<Photo> photos) {
+	public GalleryAdapter(Context c, ArrayList<Post> photos) {
 		mContext = c;
 		li = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.photos = photos;
@@ -73,11 +74,11 @@ private static final String TAG = "GalleryAdapter";
 			view = li.inflate(R.layout.fragment_gallery_item, null);
 		}
 		
-		Photo photo = photos.get(position);
+		Post photo = photos.get(position);
 		
 		ImageView image = (ImageView)view.findViewById(R.id.gallery_item_image);
 		
-		imageLoader.displayImage(photo.getPhotoUrl(), image, options);
+		imageLoader.displayImage(photo.getThumbUrl(), image, options);
 		
 		return view;
 	}

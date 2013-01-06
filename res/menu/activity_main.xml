@@ -3,16 +3,43 @@
     <item
         android:id="@+id/menu_add_news"
         android:orderInCategory="100"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/content_edit"
         android:showAsAction="ifRoom"
         android:title="@string/menu_add_news"/>
     
     <item
         android:id="@+id/menu_add_photo"
         android:orderInCategory="101"
-        android:icon="@android:drawable/ic_menu_camera"
+        android:icon="@drawable/device_access_camera"
         android:showAsAction="ifRoom"
         android:title="@string/menu_add_photo"/>
+    
+    <item
+        android:id="@+id/menu_logout"
+        android:orderInCategory="102"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/navigation_cancel"
+        android:title="@string/menu_logout"/>
+    
+	<item
+	    android:id="@+id/menu_refresh"
+	    android:orderInCategory="103"
+	    android:showAsAction="ifRoom"
+	    android:icon="@drawable/navigation_refresh"
+	    android:title="@string/menu_refresh"/>
+    
+	<!-- 
+    <item
+        android:id="@+id/menu_show_popup"
+        android:orderInCategory="102"
+        android:icon="@android:drawable/ic_menu_more"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_show_popup">
+        <menu>
+            
+        </menu>
+    </item>
+     -->
     
     <!-- 
     <item
@@ -22,10 +49,6 @@
         android:title="@string/menu_settings"/>
      -->
      
-    <item
-        android:id="@+id/menu_logout"
-        android:orderInCategory="102"
-        android:showAsAction="never"
-        android:title="@string/menu_logout"/>
+    
 
 </menu>

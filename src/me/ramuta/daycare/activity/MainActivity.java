@@ -8,6 +8,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 
 import me.ramuta.daycare.R;
 import me.ramuta.daycare.activity.LoginActivity.ResponseReceiver;
@@ -37,6 +38,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.PopupMenu;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -56,8 +58,12 @@ public class MainActivity extends SherlockFragmentActivity {
  	private final static int CAMERA_REQUEST_CODE = 222;
  	public static final String PIC_PATH = "getpicpath";
  	
- 	//
+ 	// receiver
  	private MainResponseReceiver receiver;
+ 	
+ 	// menu and submenu
+ 	private static final int MENU_ONE = 1;
+ 	private static final int MENU_TWO = 2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +132,18 @@ public class MainActivity extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
+		
+		/*
+		SubMenu subMenu1 = menu.addSubMenu("Action Item");
+        subMenu1.add(groupId, itemId, order, title)
+        subMenu1.add("Menu");
+        subMenu1.add("Items");
+
+        MenuItem subMenu1Item = subMenu1.getItem();
+        subMenu1Item.setIcon(android.R.drawable.ic_menu_more);
+        subMenu1Item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		*/
+		
 		return true;
 	}
 
@@ -137,6 +155,9 @@ public class MainActivity extends SherlockFragmentActivity {
 			Log.i(TAG, "Settings");
 			return true;
 		*/
+		case R.id.menu_refresh:
+			refresh();
+			return true;
 		case R.id.menu_logout:
 			logoutAlertDialog();
 			return true;
@@ -257,4 +278,10 @@ public class MainActivity extends SherlockFragmentActivity {
     	this.unregisterReceiver(receiver);
     	super.onDestroy();
     }
+    
+    /** Refreshes the Main Activity. */
+	private void refresh() {
+		Intent intentMainService = new Intent(MainActivity.this, MainService.class);
+		startService(intentMainService);
+	}
 }

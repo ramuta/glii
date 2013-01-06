@@ -15,6 +15,7 @@ import java.util.List;
 import me.ramuta.daycare.activity.LoginActivity.ResponseReceiver;
 import me.ramuta.daycare.activity.MainActivity.MainResponseReceiver;
 import me.ramuta.daycare.data.DataHolder;
+import me.ramuta.daycare.data.DataHolder.PostType;
 import me.ramuta.daycare.data.UrlHelper;
 
 import org.apache.http.HttpEntity;
@@ -75,7 +76,7 @@ public class MainService extends IntentService {
 		
 		//getStream5();
 		
-		//dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl())); // make post objects from json response
+		//dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl()), DataHolder.PostType.NEWS); // make post objects from json response
 		//dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
 		
 		//getData(UrlHelper.getChildUrl()); // TODO: spravi v dataholder
