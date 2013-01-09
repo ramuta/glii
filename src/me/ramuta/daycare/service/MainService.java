@@ -76,11 +76,12 @@ public class MainService extends IntentService {
 		
 		//getStream5();
 		
-		//dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl()), DataHolder.PostType.NEWS); // make post objects from json response
-		//dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
+		dataHolder.setPostObjects(getData(UrlHelper.getStreamUrl()), DataHolder.PostType.NEWS); // make post objects from json response
+		dataHolder.setGroupObjects(getData(UrlHelper.getGroupUrl()));
 		
-		//getData(UrlHelper.getChildUrl()); // TODO: spravi v dataholder
-		//getData(UrlHelper.getGalleryUrl()); // TODO: spravi v dataholder
+		dataHolder.setPostObjects(getData(UrlHelper.getGalleryUrl()), DataHolder.PostType.GALLERY);
+		
+		//getData(UrlHelper.getg); // TODO: spravi v dataholder
 		
 		// pošlji linke prek intenta
 		Intent broadcastIntent = new Intent();

@@ -1,6 +1,7 @@
 package me.ramuta.daycare.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,14 +37,17 @@ public class DataHolder {
 	public void init() {
 		
 		// posts
+		
+		/*
 		Post post22 = new Post("1", "Obiskal nas je božièek.", "Metka", "Novak", "Zajèki", true, "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg", "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg");
 		Post post33 = new Post("2", "Šli smo na sprehod.", "Vesna", "Mikiè", "Zajèki", true, "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg", "http://c2717642.r42.cf0.rackcdn.com/75d4c49d-5ad9-47a0-a09b-feb8f721cd1f.jpg");
-		Post post44 = new Post("3", "Danes pojemo pesmice.", "Metka", "Novak", "Srnice", false, null, null);
+		Post post44 = new Post("3", "Danes pojemo pesmice.", "Metka", "Novak", "Srnice", true, "http://api.glii.me/GliiImages/280a1b74-270c-40c9-8982-34226cbb762b.jpg", "http://api.glii.me/GliiImages/280a1b74-270c-40c9-8982-34226cbb762b.jpg");
 		Post post55 = new Post("4", "Imamo risarsko delavnico.", "Metka", "Novak", "Medvedki", true, "http://www.mylhumc.com/images/501_daycare-draw.jpg", "http://www.mylhumc.com/images/501_daycare-draw.jpg");
 		posts.add(post22);
 		posts.add(post33);
 		posts.add(post44);
 		posts.add(post55);
+		
 		
 		// photos
 		Post post66 = new Post("1", "Obiskal nas je božièek.", "Metka", "Novak", "Zajèki", true, "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg", "http://www.vgcc.edu/newsimages/daycare-santa-web.jpg");
@@ -52,6 +56,7 @@ public class DataHolder {
 		photos.add(post66);
 		photos.add(post77);
 		photos.add(post88);
+		*/
 		
 		// events
 		Event event1 = new Event("Obisk Dedka Mraza.", "15.12.2012");
@@ -62,6 +67,7 @@ public class DataHolder {
 		events.add(event3);
 		
 		// children in a group
+		/*
 		Child child11 = new Child("1", "Mihec", "Pihec", "http://www.my-childs-future.net/wp-content/uploads/9_3_orig.jpg", "http://www.my-childs-future.net/wp-content/uploads/9_3_orig.jpg");
 		Child child22 = new Child("2", "Ana", "Banana", "http://tusb.stanford.edu/wp-content/uploads/2011/01/Child-pic3.jpg", "http://tusb.stanford.edu/wp-content/uploads/2011/01/Child-pic3.jpg");
 		Child child33 = new Child("3", "Tinca", "Binca", "http://www.expectmorechildcare.com/images/child-laughing-at-day-care2.jpg", "http://www.expectmorechildcare.com/images/child-laughing-at-day-care2.jpg");
@@ -74,13 +80,21 @@ public class DataHolder {
 		Group othrGroup = new Group("2", "Srnice", othrChldrn);
 		groups.add(thisGroup);
 		groups.add(othrGroup);
+		*/
 	}
 	
 	/*
 	 * Set post objects for creating news stream.
 	 */
 	public void setPostObjects(String response, PostType type) {
-		posts.clear();
+		//clear previous entries to prevent double entries
+		if (type == PostType.NEWS) {
+			posts.clear();
+		} else if (type == PostType.GALLERY) {
+			photos.clear();
+		}
+		
+		// parse response
 		try {
 			JSONArray jArray = new JSONArray(response);
 			
@@ -129,6 +143,10 @@ public class DataHolder {
 				}
 				
 			}
+			
+			if (type == PostType.NEWS) {
+				Collections.reverse(posts); // reverse for the correct date order
+			}			
 			
 		} catch (JSONException e) {
 			Log.e(TAG, "json ex: "+e);

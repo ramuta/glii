@@ -109,7 +109,7 @@ public class SelectGroupDialogFragment extends DialogFragment {
 	private void sendPost() {
 		Toast.makeText(getActivity(), "Post sent", Toast.LENGTH_SHORT).show();
 		callAddNewsService();
-		refresh();
+		//refresh();
 		getActivity().finish();
 	}
 	
@@ -138,9 +138,5 @@ public class SelectGroupDialogFragment extends DialogFragment {
 		return converted;
 	}
 	
-	/** Refreshes the Main Activity. */
-	private void refresh() {
-		Intent intentMainService = new Intent(getActivity(), MainService.class);
-		getActivity().startService(intentMainService);
-	}
+	
 }

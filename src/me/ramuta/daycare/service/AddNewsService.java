@@ -64,6 +64,7 @@ public class AddNewsService extends IntentService {
 		Log.i(TAG, "comment: "+comment+", with photo? "+withPhoto+", group: "+group+", photoPath: "+photoPath);
 		
 		response = addNews(withPhoto, comment, photoPath, group);
+		refresh();
 		
 		Log.i(TAG, "sending post successful? "+response);
 	}
@@ -89,7 +90,7 @@ public class AddNewsService extends IntentService {
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
     	     HttpPost httppost = new HttpPost(UrlHelper.getPostUrl());
-    	     //httppost.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
+    	     httppost.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
     	     httppost.setEntity(reqEntity);
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();
@@ -125,5 +126,11 @@ public class AddNewsService extends IntentService {
 		byte[] byteArray = bao.toByteArray();
 		String encodedImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
 		return encodedImage;
+	}
+	
+	/** Refreshes the Main Activity. */
+	private void refresh() {
+		Intent intentMainService = new Intent(AddNewsService.this, MainService.class);
+		startService(intentMainService);
 	}
 }
