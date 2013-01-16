@@ -90,7 +90,7 @@ public class AddNewsService extends IntentService {
     	try {
     	     HttpClient httpclient = new DefaultHttpClient();
     	     HttpPost httppost = new HttpPost(UrlHelper.getPostUrl());
-    	     httppost.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
+    	     //httppost.setHeader("Cookie", UrlHelper.getAuthCookie()); // dodamo cookie v header
     	     httppost.setEntity(reqEntity);
     	     HttpResponse response = httpclient.execute(httppost);
     	     HttpEntity entity = response.getEntity();

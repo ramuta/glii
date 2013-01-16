@@ -6,8 +6,12 @@ import me.ramuta.daycare.fragment.GroupFragment;
 import me.ramuta.daycare.object.Child;
 import me.ramuta.daycare.object.Group;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +33,9 @@ private static final String TAG = "NewsDetailsActivity";
 	// imageloader
 	private ImageLoader imageLoader;
 	private DisplayImageOptions options;
+	
+	//
+	private ImageButton callButton;
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +66,15 @@ private static final String TAG = "NewsDetailsActivity";
         int position = intent.getIntExtra(GroupFragment.POSITION_STRING, 0);
         int groupFlag = intent.getIntExtra(GroupFragment.GROUP_FLAG_STRING, 0);
         
-        Group group = DataHolder.getGroups().get(groupFlag);
-        Child child = group.getChildren().get(position);
+        Child child = null;
+        Group group = null;
+		try {
+			group = DataHolder.getGroups().get(groupFlag);
+			child = group.getChildren().get(position);
+		} catch (Exception e) {
+			// TODO Problem
+			e.printStackTrace();
+		}
         
         Log.i(TAG, "child name: "+child.getFirstName());
         
@@ -70,9 +84,22 @@ private static final String TAG = "NewsDetailsActivity";
         
         TextView name = (TextView)findViewById(R.id.child_name);
         ImageView image = (ImageView)findViewById(R.id.child_image);
+        callButton = (ImageButton)findViewById(R.id.child_contact);
         
         name.setText(childName);
         imageLoader.displayImage(child.getImageUrl(), image, options);
+        
+        callButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent callIntent = new Intent(Intent.ACTION_CALL);
+				callIntent.setData(Uri.parse("tel:"+"040666317"));
+				callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+				startActivity(callIntent);
+			}
+		});
 }
 	
 	@Override

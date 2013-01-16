@@ -24,6 +24,9 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="internet_title">No internet connection</string>
+    <string name="internet_text">Please check your internet connection.</string>
+    <string name="internet_exit">Exit</string>
     
     <!-- MainActivity -->
     <string name="title_activity_main">glii</string>
@@ -39,6 +42,7 @@
     <string name="image_box_camera">Camera</string>
     <string name="logout_dialog_title">Logout</string>
     <string name="logout_dialog_text">Do you really want to logout and exit Glii?</string>
+    <string name="check_sd_card">Error. Please check your SD card.</string>
         
     <!-- NewsFragment -->
     <string name="news_empty_message">No results</string>

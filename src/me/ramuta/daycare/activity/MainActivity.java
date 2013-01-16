@@ -33,6 +33,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -246,7 +247,12 @@ public class MainActivity extends SherlockFragmentActivity {
 				IMAGE_FLAG = 2;
 				Log.i("TAG", "Odpri fotoaparat");
 				//goToIntentCamera();
-				goToCameraActivity();
+				if (isExternalStorageAvailable()) {
+					goToCameraActivity();
+				} else {
+					Log.e(TAG, "No SD card!");
+					Toast.makeText(MainActivity.this, R.string.check_sd_card, Toast.LENGTH_LONG).show();
+				}
 			}
 		}).show();
     }
@@ -283,5 +289,14 @@ public class MainActivity extends SherlockFragmentActivity {
 	private void refresh() {
 		Intent intentMainService = new Intent(MainActivity.this, MainService.class);
 		startService(intentMainService);
+	}
+	
+	/** Is external storage available? */
+	private boolean isExternalStorageAvailable() {
+		if(Environment.getExternalStorageState().equals("shared")) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

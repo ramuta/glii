@@ -15,11 +15,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -79,6 +82,10 @@ public class LoginActivity extends SherlockFragmentActivity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 		loginButton = (Button)findViewById(R.id.sign_in_button);
+		
+		if(!checkInternetConnection()) {
+			openCheckConnectionDialogBox();
+		}
   		
   		try {
 			// get shared prefs data if any (email, password)
@@ -94,14 +101,11 @@ public class LoginActivity extends SherlockFragmentActivity {
   			mEmailView.setInputType(InputType.TYPE_NULL);
   			showProgress(true);
   			startAuthService();
-  		} else { // otherwise ask for login
-  		
+  		} else { // otherwise ask for login  		
 			// Set up the login form.
-			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
-			
+			mEmail = getIntent().getStringExtra(EXTRA_EMAIL);			
 			mEmailView.requestFocus();
-			mEmailView.setText(mEmail);
-	
+			mEmailView.setText(mEmail);	
 			
 			mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 						@Override
@@ -113,9 +117,7 @@ public class LoginActivity extends SherlockFragmentActivity {
 							return false;
 						}
 					});
-	
-			
-	
+
 			loginButton.setOnClickListener(
 					new View.OnClickListener() {
 						@Override
@@ -271,6 +273,37 @@ public class LoginActivity extends SherlockFragmentActivity {
 			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
+	
+	/** test internet connection */
+    private boolean checkInternetConnection() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() != null
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected()) {
+            return true;
+        } else {
+            System.out.println("ni internejtne povezave");
+            return false;
+        }
+    }
+    
+    /** Opens a dialog box to choose between Camera and Gallery. */
+    private void openCheckConnectionDialogBox() {
+    	AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+		alert.setTitle(R.string.internet_title);
+		alert.setMessage(R.string.internet_text);
+		alert.setNegativeButton(R.string.menu_settings, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which) {
+				startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS)); // go to Android settings
+				LoginActivity.this.finish();
+			}});
+		alert.setPositiveButton(R.string.internet_exit, new DialogInterface.OnClickListener() {				
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				LoginActivity.this.finish();
+			}
+		}).show();
+    }
 	
 	@Override
     public void onDestroy() {
